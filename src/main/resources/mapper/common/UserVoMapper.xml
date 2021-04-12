@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.ncov.www.ncov.common.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="site.ncov.www.ncov.common.model.vo.UserVo">
+        <id column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="user_phone" property="userPhone" />
+        <result column="user_idcard" property="userIdcard" />
+        <result column="user_address" property="userAddress" />
+        <result column="user_gender" property="userGender" />
+        <result column="user_nation" property="userNation" />
+        <result column="user_pwd" property="userPwd" />
+        <result column="user_role" property="userRole" />
+        <result column="user_birth" property="userBirth" />
+        <result column="user_card_photo" property="userCardPhoto" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_by" property="createBy" />
+        <result column="update_by" property="updateBy" />
+        <result column="is_delete" property="isDelete" />
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,74 @@
+package site.ncov.www.ncov.common.model.vo;
+
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import java.time.LocalDate;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
+import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/**
+ * <p>
+ * 用户表
+ * </p>
+ *
+ * @author wangsiyuan
+ * @since 2021-04-12
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@TableName("ncov_user")
+@ApiModel(value="UserVo对象", description="用户表")
+public class UserVo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @TableId(value = "user_id", type = IdType.AUTO)
+    private Integer userId;
+
+    @ApiModelProperty(value = "姓名")
+    private String userName;
+
+    @ApiModelProperty(value = "用户手机号")
+    private String userPhone;
+
+    @ApiModelProperty(value = "身份证号")
+    private String userIdcard;
+
+    @ApiModelProperty(value = "地址")
+    private String userAddress;
+
+    @ApiModelProperty(value = "性别")
+    private Integer userGender;
+
+    @ApiModelProperty(value = "民族")
+    private String userNation;
+
+    @ApiModelProperty(value = "密码")
+    private String userPwd;
+
+    @ApiModelProperty(value = "角色")
+    private Integer userRole;
+
+    @ApiModelProperty(value = "生日")
+    private LocalDate userBirth;
+
+    @ApiModelProperty(value = "用户证件照片")
+    private String userCardPhoto;
+
+    private LocalDateTime createTime;
+
+    private LocalDateTime updateTime;
+
+    private Integer createBy;
+
+    private Integer updateBy;
+
+    private Boolean isDelete;
+
+
+}
