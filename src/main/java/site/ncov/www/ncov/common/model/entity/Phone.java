@@ -1,5 +1,6 @@
 package site.ncov.www.ncov.common.model.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import site.ncov.www.ncov.common.exception.WebException;
 
@@ -10,9 +11,16 @@ import site.ncov.www.ncov.common.exception.WebException;
 @Getter
 public class Phone {
 
-    private final String phone;
+    private String phone;
 
     public Phone(String phone) {
+        this.phone = phone;
+    }
+
+    public Phone(){}
+
+    public void setPhone(String phone) throws WebException {
+        checkPhone(phone);
         this.phone = phone;
     }
 
