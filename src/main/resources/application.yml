@@ -52,3 +52,9 @@ mybatis-plus:
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
   configuration:
     cache-enabled: true
+
+# LOGGING
+logging:
+  config: classpath:logback.xml
+
+imgPath: classpath:/static/img/
