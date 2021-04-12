@@ -23,6 +23,7 @@ public class SwaggerConfig {
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("commonApi")
+                .host("www.2019-ncov.site")
                 .apiInfo(commonApiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("site.ncov.www.ncov.common"))
