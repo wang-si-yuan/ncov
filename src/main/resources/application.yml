@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: ncov
+  rabbitmq:
+    host: 118.195.156.48
+    port: 5672
+    username: admin
+    password: admin
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://118.195.156.48:3306/ncov?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true
