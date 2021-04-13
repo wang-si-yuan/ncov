@@ -1,16 +1,26 @@
 package site.ncov.www.ncov.common.model.entity;
 
+import com.alibaba.fastjson.JSONObject;
+import com.tencentcloudapi.common.Credential;
+import com.tencentcloudapi.common.exception.TencentCloudSDKException;
+import com.tencentcloudapi.common.profile.ClientProfile;
+import com.tencentcloudapi.common.profile.HttpProfile;
+import com.tencentcloudapi.ocr.v20181119.OcrClient;
+import com.tencentcloudapi.ocr.v20181119.models.IDCardOCRRequest;
+import com.tencentcloudapi.ocr.v20181119.models.IDCardOCRResponse;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
+import site.ncov.www.ncov.common.utils.ImageUtils;
+import sun.misc.BASE64Encoder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -57,6 +67,49 @@ public class Picture {
 
         url = "http://"+site+":8000/"+fileName;
 
+    }
+
+    public User getUserByOCR() {
+        try{
+
+            Credential cred = new Credential("AKIDEUXLjuYlJccLYXoxFMgQt4HniKfx6nY1", "MM6YjeKlvQijhJB8qH0vLQE26dz61f13");
+
+            HttpProfile httpProfile = new HttpProfile();
+            httpProfile.setEndpoint("ocr.tencentcloudapi.com");
+
+            ClientProfile clientProfile = new ClientProfile();
+            clientProfile.setHttpProfile(httpProfile);
+
+            OcrClient client = new OcrClient(cred, "ap-beijing", clientProfile);
+
+            IDCardOCRRequest req = new IDCardOCRRequest();
+
+            BASE64Encoder encoder = new BASE64Encoder();
+            String encode = encoder.encode(picture.getBytes());
+            //req.setImageUrl(picture);
+            req.setImageBase64(encode);
+
+            IDCardOCRResponse resp = client.IDCardOCR(req);
+
+            String json = IDCardOCRResponse.toJsonString(resp);
+
+            Map<String,String> map = (Map) JSONObject.parse(json);
+            User user = new User();
+            user.setUserName(map.get("Name"));
+            user.setUserNation(map.get("Nation"));
+            if(map.get("Sex").equals("男")){
+                user.setUserGender(0);
+            }else {
+                user.setUserGender(1);
+            }
+            user.setUserAddress(map.get("Address"));
+            user.setUserIdcard(map.get("IdNum"));
+            return user;
+
+        } catch (TencentCloudSDKException | IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

@@ -23,15 +23,14 @@ import java.io.FileNotFoundException;
 @RequestMapping("/dev/register")
 public class DevRegisterController {
 
-    @Autowired
-    private IDCardOCRService idCardOCRService;
 
     @PostMapping
     public HttpResult setUser(String phone, String pwd, MultipartFile picture) throws FileNotFoundException {
-        User user = idCardOCRService.getUserByOCR(new Picture(picture));
+        User user = new Picture(picture).getUserByOCR();
         if (user!=null) {
             user.setUserPhone(new Phone(phone));
             user.setUserPwd(pwd);
+            user.setUserRole(0);
         }
         return HttpResult.ok(user);
     }
