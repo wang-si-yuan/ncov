@@ -46,14 +46,14 @@ public class User {
     @ApiModelProperty(value = "用户证件照片")
     private Picture userCardPhoto;
 
-    public UserVo getVo(){
+    public UserVo transVo(){
         UserVo userVo = BeanConvertUtil.copyProperties(this, UserVo.class);
         userVo.setUserPhone(this.getUserPhone().getPhone());
         userVo.setUserCardPhoto(this.getUserCardPhoto().getUrl());
         return userVo;
     }
 
-    public static User getUser(UserVo userVo) throws FileNotFoundException {
+    public static User transUser(UserVo userVo) throws FileNotFoundException {
         User user = BeanConvertUtil.copyProperties(userVo,User.class);
         user.setUserPhone(new Phone(userVo.getUserPhone()));
         user.setUserCardPhoto(new Picture(userVo.getUserCardPhoto()));
