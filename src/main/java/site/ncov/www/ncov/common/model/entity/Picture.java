@@ -84,10 +84,9 @@ public class Picture {
 
             IDCardOCRRequest req = new IDCardOCRRequest();
 
-            BASE64Encoder encoder = new BASE64Encoder();
-            String encode = encoder.encode(picture.getBytes());
+            String s = ImageUtils.image2Base64(url);
             //req.setImageUrl(picture);
-            req.setImageBase64(encode);
+            req.setImageBase64(s);
 
             IDCardOCRResponse resp = client.IDCardOCR(req);
 
@@ -106,7 +105,7 @@ public class Picture {
             user.setUserIdcard(map.get("IdNum"));
             return user;
 
-        } catch (TencentCloudSDKException | IOException e) {
+        } catch (TencentCloudSDKException e) {
             e.printStackTrace();
         }
         return null;
