@@ -5,6 +5,7 @@ import lombok.Data;
 import site.ncov.www.ncov.common.model.vo.UserVo;
 import site.ncov.www.ncov.common.utils.BeanConvertUtil;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 
 /**
@@ -52,7 +53,7 @@ public class User {
         return userVo;
     }
 
-    public static User getUser(UserVo userVo) {
+    public static User getUser(UserVo userVo) throws FileNotFoundException {
         User user = BeanConvertUtil.copyProperties(userVo,User.class);
         user.setUserPhone(new Phone(userVo.getUserPhone()));
         user.setUserCardPhoto(new Picture(userVo.getUserCardPhoto()));

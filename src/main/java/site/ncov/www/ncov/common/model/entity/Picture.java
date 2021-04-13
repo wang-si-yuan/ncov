@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 /**
@@ -25,34 +26,36 @@ public class Picture {
     private String url;
     private MultipartFile picture;
 
-    @Value("${imgPath}")
-    private String path;
+    private String site="www.2019-ncov.site";
+    private String path=ResourceUtils.getURL("classpath:").getPath()+"static/img/";
 
-    public Picture(String url){
+    public Picture(String url) throws FileNotFoundException {
         this.url = url;
     }
 
     public Picture(MultipartFile picture) throws FileNotFoundException {
         fileToUrl(picture);
+        this.picture = picture;
     }
+
 
     private void fileToUrl(MultipartFile picture) throws FileNotFoundException {
         String fileName = picture.getOriginalFilename(); // 文件名
-        assert fileName != null;
+
         String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
-        String filePath = ResourceUtils.getURL(path).getPath(); // 上传后的路径
+        String filePath =  path; // 上传后的路径
         fileName = UUID.randomUUID() + suffixName;
-        File dest = new File(filePath + fileName);
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdirs();
+        File file = new File(filePath + fileName);
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
         }
         try {
-            picture.transferTo(dest);
+            picture.transferTo(file);
         } catch (IOException e) {
             logger.debug(e.toString());
         }
 
-        url = "http://www.2019-ncov.site/img/"+fileName;
+        url = "http://"+site+"/img/"+fileName;
 
     }
 

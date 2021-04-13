@@ -1,5 +1,6 @@
 package site.ncov.www.ncov.common.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -18,12 +19,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+    private String site="www.2019-ncov.site";
+
     @Bean
     public Docket commonApiConfig(){
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("commonApi")
-                .host("www.2019-ncov.site")
+                .host(site)
                 .apiInfo(commonApiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("site.ncov.www.ncov.common"))
