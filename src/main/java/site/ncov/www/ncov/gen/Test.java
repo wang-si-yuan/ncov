@@ -1,4 +1,4 @@
-package site.ncov.www.ncov.common.service.impl;
+package site.ncov.www.ncov.gen;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tencentcloudapi.common.Credential;
@@ -8,12 +8,8 @@ import com.tencentcloudapi.common.profile.HttpProfile;
 import com.tencentcloudapi.ocr.v20181119.OcrClient;
 import com.tencentcloudapi.ocr.v20181119.models.IDCardOCRRequest;
 import com.tencentcloudapi.ocr.v20181119.models.IDCardOCRResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import site.ncov.www.ncov.common.model.entity.Picture;
 import site.ncov.www.ncov.common.model.entity.User;
-import site.ncov.www.ncov.common.service.IDCardOCRService;
 import site.ncov.www.ncov.common.utils.ImageUtils;
 
 import java.util.Map;
@@ -23,11 +19,13 @@ import java.util.Map;
  * @version 0.0.0
  */
 
-@Service
-public class IDCardOCRServiceImpl implements IDCardOCRService {
-    static Logger logger = LoggerFactory.getLogger(IDCardOCRServiceImpl.class);
-    @Override
-    public User getUserByOCR(Picture picture) {
+public class Test {
+    public static void main(String[] args) {
+        User user = getUserByOCR("http://www.2019-ncov.site:8000/4b51c292-83b1-4fb0-9a8d-21c9b63d215e.jpg");
+        System.out.println(user);
+
+    }
+    public static User getUserByOCR(String picture) {
         try{
 
             Credential cred = new Credential("AKIDEUXLjuYlJccLYXoxFMgQt4HniKfx6nY1", "MM6YjeKlvQijhJB8qH0vLQE26dz61f13");
@@ -41,7 +39,7 @@ public class IDCardOCRServiceImpl implements IDCardOCRService {
             OcrClient client = new OcrClient(cred, "ap-beijing", clientProfile);
 
             IDCardOCRRequest req = new IDCardOCRRequest();
-            String s = ImageUtils.image2Base64(picture.getUrl());
+            String s = ImageUtils.image2Base64(picture);
             //req.setImageUrl(picture);
             req.setImageBase64(s);
 
@@ -63,7 +61,7 @@ public class IDCardOCRServiceImpl implements IDCardOCRService {
             return user;
 
         } catch (TencentCloudSDKException e) {
-            logger.debug(e.toString());
+            e.printStackTrace();
         }
         return null;
     }

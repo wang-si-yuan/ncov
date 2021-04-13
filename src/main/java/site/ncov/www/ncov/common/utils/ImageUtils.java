@@ -1,6 +1,7 @@
 package site.ncov.www.ncov.common.utils;
 
 import org.apache.logging.log4j.util.Base64Util;
+import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -115,8 +116,9 @@ public class ImageUtils {
             }
 
             // 对字节数组Base64编码
-
-            return Base64Util.encode(String.valueOf(outStream.toByteArray()));
+            BASE64Encoder encoder = new BASE64Encoder();
+            String encode = encoder.encode(outStream.toByteArray());
+            return encode;
 
         }catch (Exception e) {
 
