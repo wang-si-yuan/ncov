@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import site.ncov.www.ncov.common.model.entity.Picture;
 import site.ncov.www.ncov.common.model.entity.User;
 import site.ncov.www.ncov.common.service.IDCardOCRService;
+import site.ncov.www.ncov.common.utils.ImageUtils;
 
 import java.util.Map;
 
