@@ -55,7 +55,7 @@ public class Picture {
             logger.debug(e.toString());
         }
 
-        url = "http://"+site+"/img/"+fileName;
+        url = "http://"+site+":8000/"+fileName;
 
     }
 
