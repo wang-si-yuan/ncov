@@ -26,7 +26,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UserVo userVo = userService.getOne(userService.lambdaQuery().eq(UserVo::getUserPhone,username));
+        UserVo userVo = new UserVo();
+        userVo.setUserPhone(username);
+        userVo = userService.getOne(userService.lambdaQuery().eq(UserVo::getUserPhone,userVo));
         if (userVo == null) {
             throw new UsernameNotFoundException("用户无法找到");
         }
