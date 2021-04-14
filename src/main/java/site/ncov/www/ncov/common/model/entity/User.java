@@ -16,7 +16,6 @@ import java.time.LocalDate;
  */
 
 @Data
-@Component
 public class User {
 
     @ApiModelProperty(value = "姓名")
@@ -60,7 +59,7 @@ public class User {
         }
 
         if(this.getUserPwd()!=null&&this.getUserPwd().getPwd()!=null){
-            userVo.setUserPwd(this.getUserPwd().getPwd());
+            userVo.setUserPwd(this.getUserPwd().getEpwd());
         }
         return userVo;
     }

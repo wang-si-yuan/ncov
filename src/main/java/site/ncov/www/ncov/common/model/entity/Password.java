@@ -1,6 +1,8 @@
 package site.ncov.www.ncov.common.model.entity;
 
 import lombok.Data;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import site.ncov.www.ncov.common.utils.HttpStatus;
 import site.ncov.www.ncov.common.exception.WebException;
 
@@ -12,18 +14,25 @@ import site.ncov.www.ncov.common.exception.WebException;
 @Data
 public class Password {
     private String pwd;
+    private String epwd;
 
     public Password() {
     }
 
-    public void setPwd(String pwd) throws WebException {
+    public void setPwd(String pwd, PasswordEncoder passwordEncoder) throws WebException {
         checkPassword(pwd);
         this.pwd = pwd;
+        this.epwd = passwordEncoder.encode(pwd);
     }
 
-    public Password(String pwd) throws WebException {
+    public Password(String pwd, PasswordEncoder passwordEncoder) throws WebException {
         checkPassword(pwd);
         this.pwd = pwd;
+        this.epwd = passwordEncoder.encode(pwd);
+    }
+
+    public Password(String epwd) {
+        this.epwd =epwd;
     }
 
     private void checkPassword(String password) throws WebException {
