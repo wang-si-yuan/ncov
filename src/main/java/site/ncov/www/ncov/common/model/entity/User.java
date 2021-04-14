@@ -2,7 +2,6 @@ package site.ncov.www.ncov.common.model.entity;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 import site.ncov.www.ncov.common.exception.WebException;
 import site.ncov.www.ncov.common.model.vo.UserVo;
 import site.ncov.www.ncov.common.utils.BeanConvertUtils;
