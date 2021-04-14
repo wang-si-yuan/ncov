@@ -29,8 +29,8 @@ public class DevController {
     }
 
     @ApiOperation("添加用户信息")
-    @PostMapping("/addUserByDev")
-    public HttpResult addUserByDev(@RequestBody Role role, @RequestBody String phone, @RequestBody String pwd, @RequestBody @RequestPart("file") MultipartFile pic) throws FileNotFoundException, WebException {
+    @RequestMapping(value = "/addUserByDev",method = {RequestMethod.POST})
+    public HttpResult addUserByDev(Role role, String phone, String pwd, @RequestPart("file") MultipartFile pic) throws FileNotFoundException, WebException {
         User user = userService.getUserByDev(pic);
         user.setUserPwd(new Password(pwd));
         user.setUserPhone(new Phone(phone));
