@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 import site.ncov.www.ncov.common.exception.WebException;
 import site.ncov.www.ncov.common.model.vo.UserVo;
-import site.ncov.www.ncov.common.utils.BeanConvertUtil;
+import site.ncov.www.ncov.common.utils.BeanConvertUtils;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
@@ -50,18 +50,35 @@ public class User {
     private Picture userCardPhoto;
 
     public UserVo transVo(){
-        UserVo userVo = BeanConvertUtil.copyProperties(this, UserVo.class);
-        userVo.setUserPhone(this.getUserPhone().getPhone());
-        userVo.setUserCardPhoto(this.getUserCardPhoto().getUrl());
-        userVo.setUserPwd(this.getUserPwd().getPwd());
+        UserVo userVo = BeanConvertUtils.copyProperties(this, UserVo.class);
+        if (this.getUserPhone()!=null&&this.getUserPhone().getPhone()!=null){
+            userVo.setUserPhone(this.getUserPhone().getPhone());
+        }
+
+        if (this.getUserCardPhoto()!=null&&this.getUserCardPhoto().getUrl()!=null){
+            userVo.setUserCardPhoto(this.getUserCardPhoto().getUrl());
+        }
+
+        if(this.getUserPwd()!=null&&this.getUserPwd().getPwd()!=null){
+            userVo.setUserPwd(this.getUserPwd().getPwd());
+        }
         return userVo;
     }
 
     public static User transUser(UserVo userVo) throws FileNotFoundException, WebException {
-        User user = BeanConvertUtil.copyProperties(userVo,User.class);
-        user.setUserPhone(new Phone(userVo.getUserPhone()));
-        user.setUserCardPhoto(new Picture(userVo.getUserCardPhoto()));
-        user.setUserPwd(new Password(userVo.getUserPwd()));
+        User user = BeanConvertUtils.copyProperties(userVo,User.class);
+        if (userVo.getUserPhone()!=null){
+            user.setUserPhone(new Phone(userVo.getUserPhone()));
+        }
+
+        if (userVo.getUserCardPhoto()!=null){
+            user.setUserCardPhoto(new Picture(userVo.getUserCardPhoto()));
+        }
+
+        if (userVo.getUserPwd()!=null){
+            user.setUserPwd(new Password(userVo.getUserPwd()));
+        }
+
         return user;
     }
 }

@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
+import site.ncov.www.ncov.common.utils.CovertDateFormatUtils;
 import site.ncov.www.ncov.common.utils.DataFactory;
 import site.ncov.www.ncov.common.utils.ImageUtils;
 
@@ -67,6 +68,7 @@ public class Picture {
         }
 
         url = "http://"+ DataFactory.site +":8000/"+fileName;
+        //url = "http://"+ DataFactory.site +"/img/"+fileName;
 
     }
 
@@ -81,10 +83,11 @@ public class Picture {
         return getUser(url);
     }
 
-    public static User getUser(String url) {
+    private User getUser(String url) {
         try{
 
-            Credential cred = new Credential("AKIDEUXLjuYlJccLYXoxFMgQt4HniKfx6nY1", "MM6YjeKlvQijhJB8qH0vLQE26dz61f13");
+            Credential cred = new Credential("AKIDEUXLjuYlJccLYXoxFMgQt4HniKfx6nY1",
+                    "MM6YjeKlvQijhJB8qH0vLQE26dz61f13");
 
             HttpProfile httpProfile = new HttpProfile();
             httpProfile.setEndpoint("ocr.tencentcloudapi.com");
@@ -115,6 +118,9 @@ public class Picture {
             }
             user.setUserAddress(map.get("Address"));
             user.setUserIdcard(map.get("IdNum"));
+            user.setUserCardPhoto(this);
+            user.setUserBirth(CovertDateFormatUtils.dateToLocalDate(CovertDateFormatUtils.parseDate(map.get("Birth"),
+                    "yyyy/M/d")));
             return user;
 
         } catch (TencentCloudSDKException e) {

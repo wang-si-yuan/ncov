@@ -9,10 +9,10 @@ import org.springframework.beans.BeanUtils;
  * @version 0.0.0
  */
 
-public class BeanConvertUtil {
-    static Logger logger = LoggerFactory.getLogger(BeanConvertUtil.class);
+public class BeanConvertUtils {
+    static Logger logger = LoggerFactory.getLogger(BeanConvertUtils.class);
 
-    private BeanConvertUtil(){}
+    private BeanConvertUtils(){}
 
     /**
      * 类之间相同属性的copy
