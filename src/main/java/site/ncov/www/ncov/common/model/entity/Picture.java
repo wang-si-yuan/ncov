@@ -13,8 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
+import site.ncov.www.ncov.common.utils.DataFactory;
 import site.ncov.www.ncov.common.utils.ImageUtils;
-import sun.misc.BASE64Encoder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,9 +34,9 @@ public class Picture {
     static Logger logger = LoggerFactory.getLogger(Picture.class);
 
     private String url;
+    private String localUrl;
     private MultipartFile picture;
 
-    private String site="www.2019-ncov.site";
     private String path=ResourceUtils.getURL("classpath:").getPath()+"static/img/";
 
     public Picture(String url) throws FileNotFoundException {
@@ -55,6 +55,7 @@ public class Picture {
         String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
         String filePath =  path; // 上传后的路径
         fileName = UUID.randomUUID() + suffixName;
+        localUrl = filePath + fileName;
         File file = new File(filePath + fileName);
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
@@ -65,11 +66,22 @@ public class Picture {
             logger.debug(e.toString());
         }
 
-        url = "http://"+site+":8000/"+fileName;
+        url = "http://"+ DataFactory.site +":8000/"+fileName;
 
     }
 
-    public User getUserByOCR() {
+    public void clearPic() {
+        File file = new File(localUrl);
+        if (file.getParentFile().exists()) {
+            file.getParentFile().delete();
+        }
+    }
+
+    public User queryUserByOCR() {
+        return getUser(url);
+    }
+
+    public static User getUser(String url) {
         try{
 
             Credential cred = new Credential("AKIDEUXLjuYlJccLYXoxFMgQt4HniKfx6nY1", "MM6YjeKlvQijhJB8qH0vLQE26dz61f13");
@@ -97,20 +109,19 @@ public class Picture {
             user.setUserName(map.get("Name"));
             user.setUserNation(map.get("Nation"));
             if(map.get("Sex").equals("男")){
-                user.setUserGender(0);
+                user.setUserGender(Gender.MAN);
             }else {
-                user.setUserGender(1);
+                user.setUserGender(Gender.WOMAN);
             }
             user.setUserAddress(map.get("Address"));
             user.setUserIdcard(map.get("IdNum"));
             return user;
 
         } catch (TencentCloudSDKException e) {
-            e.printStackTrace();
+            logger.info(e.toString());
         }
         return null;
     }
-
 
 
 }

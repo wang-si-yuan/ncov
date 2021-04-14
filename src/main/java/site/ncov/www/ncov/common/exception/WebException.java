@@ -1,5 +1,6 @@
 package site.ncov.www.ncov.common.exception;
 
+import lombok.Data;
 import site.ncov.www.ncov.common.model.entity.HttpResult;
 
 import java.security.PrivilegedActionException;
@@ -9,6 +10,7 @@ import java.security.PrivilegedActionException;
  * @version 0.0.0
  */
 
+@Data
 public class WebException extends Exception{
 
     private HttpResult httpResult;

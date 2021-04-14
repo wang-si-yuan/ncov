@@ -1,7 +1,7 @@
 package site.ncov.www.ncov.common.model.entity;
 
 import lombok.Data;
-import site.ncov.www.ncov.common.config.HttpStatus;
+import site.ncov.www.ncov.common.utils.HttpStatus;
 
 /**
  * @author 王思源
@@ -32,17 +32,21 @@ public class HttpResult {
     public static HttpResult ok(String msg) {
         HttpResult r = new HttpResult();
         r.setMsg(msg);
+        r.code = 200;
         return r;
     }
 
     public static HttpResult ok(Object data) {
         HttpResult r = new HttpResult();
         r.setData(data);
+        r.code = 200;
         return r;
     }
 
     public static HttpResult ok() {
-        return new HttpResult();
+        HttpResult httpResult = new HttpResult();
+        httpResult.code=200;
+        return httpResult;
     }
 
 

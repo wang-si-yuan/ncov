@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import site.ncov.www.ncov.common.model.entity.Gender;
+import site.ncov.www.ncov.common.model.entity.Role;
 
 /**
  * <p>
@@ -43,7 +45,7 @@ public class UserVo implements Serializable {
     private String userAddress;
 
     @ApiModelProperty(value = "性别")
-    private Integer userGender;
+    private Gender userGender;
 
     @ApiModelProperty(value = "民族")
     private String userNation;
@@ -52,7 +54,7 @@ public class UserVo implements Serializable {
     private String userPwd;
 
     @ApiModelProperty(value = "角色")
-    private Integer userRole;
+    private Role userRole;
 
     @ApiModelProperty(value = "生日")
     private LocalDate userBirth;

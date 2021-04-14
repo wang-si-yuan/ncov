@@ -1,4 +1,4 @@
-package site.ncov.www.ncov.common.config;
+package site.ncov.www.ncov.common.utils;
 
 /**
  * @author 王思源
