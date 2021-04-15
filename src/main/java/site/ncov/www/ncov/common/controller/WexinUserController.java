@@ -22,7 +22,8 @@ import java.io.FileNotFoundException;
  * @version 0.0.0
  */
 @Api(tags="微信用户模块")
-@RestController("/weixin")
+@RestController
+@RequestMapping("/weixin")
 public class WexinUserController {
 
     @Autowired

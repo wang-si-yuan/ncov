@@ -68,7 +68,7 @@ public class Picture {
         }
 
         url = "http://"+ DataFactory.site +":8000/"+fileName;
-        //url = "http://"+ DataFactory.site +"/img/"+fileName;
+//        url = "http://"+ DataFactory.site +"/img/"+fileName;
 
     }
 

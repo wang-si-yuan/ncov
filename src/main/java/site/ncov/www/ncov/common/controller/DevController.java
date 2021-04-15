@@ -17,7 +17,8 @@ import java.io.FileNotFoundException;
  * @version 0.0.0
  */
 @Api(tags="开发者模块")
-@RestController("/dev")
+@RestController
+@RequestMapping("/dev")
 public class DevController {
 
     @Autowired
