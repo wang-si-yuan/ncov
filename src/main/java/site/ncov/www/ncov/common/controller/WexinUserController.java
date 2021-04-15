@@ -32,7 +32,6 @@ public class WexinUserController {
     private PasswordEncoder passwordEncoder;
 
     @ApiOperation("注册用户")
-    @PermitAll
     @RequestMapping(value = "/register",method = {RequestMethod.POST})
     public HttpResult Register(String phone, String pwd, @RequestPart("file") MultipartFile pic) throws FileNotFoundException, WebException {
 
