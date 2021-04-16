@@ -42,7 +42,7 @@ public class WexinUserController {
         user.setUserRole(Role.NORMAL);
 
         userService.save(user.transVo());
-        return HttpResult.ok(user);
+        return HttpResult.ok(user.transVo());
 
     }
 }
