@@ -34,11 +34,23 @@ public class SwaggerConfig {
                 .build();
     }
 
+    @Bean
+    public Docket placeApiConfig(){
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("placeAPI")
+                .host(DataFactory.site)
+                .apiInfo(commonApiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("site.ncov.www.ncov.place"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
     private ApiInfo commonApiInfo(){
 
         return new ApiInfoBuilder()
-                .title("公共模块文档")
-                .description("公共模块api定义")
+                .title("地点模块文档")
+                .description("地点模块api定义")
                 .version("1.0")
                 .build();
     }
