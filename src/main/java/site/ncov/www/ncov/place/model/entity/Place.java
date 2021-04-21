@@ -3,6 +3,8 @@ package site.ncov.www.ncov.place.model.entity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Tolerate;
 
 import java.math.BigDecimal;
 
@@ -47,4 +49,7 @@ public class Place {
     @ApiModelProperty(value = "营业资质：0有1无")
     private Boolean placeQualifications;
 
+    @Tolerate
+    public Place() {
+    }
 }

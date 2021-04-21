@@ -3,6 +3,7 @@ package site.ncov.www.ncov.common.model.entity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 import org.springframework.security.core.authority.AuthorityUtils;
 import site.ncov.www.ncov.common.exception.WebException;
 import site.ncov.www.ncov.common.model.vo.UserVo;
@@ -71,14 +72,17 @@ public class User {
     public static User transEntity(UserVo userVo) throws FileNotFoundException, WebException {
         User user = BeanConvertUtils.copyProperties(userVo,User.class);
         if (userVo.getUserPhone()!=null){
+            assert user != null;
             user.setUserPhone(new Phone(userVo.getUserPhone()));
         }
 
         if (userVo.getUserCardPhoto()!=null){
+            assert user != null;
             user.setUserCardPhoto(new Picture(userVo.getUserCardPhoto()));
         }
 
         if (userVo.getUserPwd()!=null){
+            assert user != null;
             user.setUserPwd(new Password(userVo.getUserPwd()));
         }
 
@@ -87,5 +91,9 @@ public class User {
 
     public org.springframework.security.core.userdetails.User transDetails() {
         return new org.springframework.security.core.userdetails.User(userPhone.getPhone(),userPwd.getEpwd(), AuthorityUtils.commaSeparatedStringToAuthorityList(userRole.name()));
+    }
+
+    @Tolerate
+    public User() {
     }
 }

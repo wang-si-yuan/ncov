@@ -6,6 +6,6 @@ package site.ncov.www.ncov.common.utils;
  */
 
 public interface DataFactory {
-    String site = "www.2019-ncov.site";
-//    String site = "localhost:8080";
+//    String site = "www.2019-ncov.site";
+    String site = "localhost:8080";
 }

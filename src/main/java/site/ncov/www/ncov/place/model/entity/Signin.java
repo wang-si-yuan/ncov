@@ -3,6 +3,8 @@ package site.ncov.www.ncov.place.model.entity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Tolerate;
 import site.ncov.www.ncov.common.model.entity.User;
 import site.ncov.www.ncov.common.utils.BeanConvertUtils;
 import site.ncov.www.ncov.place.model.vo.SigninVo;
@@ -79,4 +81,7 @@ public class Signin {
         return signin;
     }
 
+    @Tolerate
+    public Signin() {
+    }
 }
