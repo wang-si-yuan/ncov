@@ -1,6 +1,5 @@
 package site.ncov.www.ncov.common.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import site.ncov.www.ncov.common.utils.DataFactory;
@@ -39,7 +38,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("placeAPI")
                 .host(DataFactory.site)
-                .apiInfo(commonApiInfo())
+                .apiInfo(placeApiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("site.ncov.www.ncov.place"))
                 .paths(PathSelectors.any())
@@ -47,6 +46,15 @@ public class SwaggerConfig {
     }
 
     private ApiInfo commonApiInfo(){
+
+        return new ApiInfoBuilder()
+                .title("公共模块文档")
+                .description("公共模块api定义")
+                .version("1.0")
+                .build();
+    }
+
+    private ApiInfo placeApiInfo(){
 
         return new ApiInfoBuilder()
                 .title("地点模块文档")
