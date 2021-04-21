@@ -29,6 +29,10 @@ public enum Role implements IEnum<Integer> {
 
     @Override
     public Integer getValue() {
-        return null;
+        return value;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 }

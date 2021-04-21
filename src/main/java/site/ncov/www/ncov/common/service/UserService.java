@@ -8,6 +8,7 @@ import site.ncov.www.ncov.common.model.entity.User;
 import site.ncov.www.ncov.common.model.vo.UserVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import javax.servlet.http.HttpSession;
 import java.io.FileNotFoundException;
 
 /**
@@ -21,5 +22,6 @@ import java.io.FileNotFoundException;
 public interface UserService extends IService<UserVo> {
 
     User getUserByDev(MultipartFile pic) throws FileNotFoundException, WebException;
+    User getCurr(HttpSession session) throws FileNotFoundException, WebException;
 
 }

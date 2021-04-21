@@ -1,7 +1,9 @@
 package site.ncov.www.ncov.common.model.entity;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
+import org.springframework.security.core.authority.AuthorityUtils;
 import site.ncov.www.ncov.common.exception.WebException;
 import site.ncov.www.ncov.common.model.vo.UserVo;
 import site.ncov.www.ncov.common.utils.BeanConvertUtils;
@@ -15,7 +17,10 @@ import java.time.LocalDate;
  */
 
 @Data
+@Builder
 public class User {
+
+    private Integer userId;
 
     @ApiModelProperty(value = "姓名")
     private String userName;
@@ -63,7 +68,7 @@ public class User {
         return userVo;
     }
 
-    public static User transUser(UserVo userVo) throws FileNotFoundException, WebException {
+    public static User transEntity(UserVo userVo) throws FileNotFoundException, WebException {
         User user = BeanConvertUtils.copyProperties(userVo,User.class);
         if (userVo.getUserPhone()!=null){
             user.setUserPhone(new Phone(userVo.getUserPhone()));
@@ -78,5 +83,9 @@ public class User {
         }
 
         return user;
+    }
+
+    public org.springframework.security.core.userdetails.User transDetails() {
+        return new org.springframework.security.core.userdetails.User(userPhone.getPhone(),userPwd.getEpwd(), AuthorityUtils.commaSeparatedStringToAuthorityList(userRole.name()));
     }
 }

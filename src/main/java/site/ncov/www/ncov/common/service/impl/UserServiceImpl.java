@@ -1,5 +1,7 @@
 package site.ncov.www.ncov.common.service.impl;
 
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
 import site.ncov.www.ncov.common.exception.WebException;
 import site.ncov.www.ncov.common.model.entity.*;
@@ -9,6 +11,7 @@ import site.ncov.www.ncov.common.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.io.FileNotFoundException;
 
 /**
@@ -31,6 +34,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserVo> implements 
             picture.clearPic();
             throw new WebException(HttpResult.error("ocr校验失败"));
         }
+        return user;
+    }
+
+    @Override
+    public User getCurr(HttpSession session) throws FileNotFoundException, WebException {
+        SecurityContextImpl securityContext = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
+        UserDetails userDetails = (UserDetails) securityContext.getAuthentication().getPrincipal();
+        User user = User.transEntity(this.lambdaQuery().eq(UserVo::getUserPhone, userDetails.getUsername()).one());
         return user;
     }
 }

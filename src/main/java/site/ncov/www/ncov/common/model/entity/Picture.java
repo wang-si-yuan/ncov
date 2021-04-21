@@ -20,7 +20,6 @@ import site.ncov.www.ncov.common.utils.ImageUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.UUID;
 
@@ -108,19 +107,17 @@ public class Picture {
             String json = IDCardOCRResponse.toJsonString(resp);
 
             Map<String,String> map = (Map) JSONObject.parse(json);
-            User user = new User();
-            user.setUserName(map.get("Name"));
-            user.setUserNation(map.get("Nation"));
+            User user = User.builder().userName(map.get("Name")).userNation(map.get("Nation"))
+                    .userAddress(map.get("Address")).userIdcard(map.get("IdNum")).userCardPhoto(this).userBirth(
+                            CovertDateFormatUtils.dateToLocalDate(
+                                    CovertDateFormatUtils.parseDate(map.get("Birth"), "yyyy/M/d")
+                            )
+                    ).build();
             if(map.get("Sex").equals("男")){
                 user.setUserGender(Gender.MAN);
             }else {
                 user.setUserGender(Gender.WOMAN);
             }
-            user.setUserAddress(map.get("Address"));
-            user.setUserIdcard(map.get("IdNum"));
-            user.setUserCardPhoto(this);
-            user.setUserBirth(CovertDateFormatUtils.dateToLocalDate(CovertDateFormatUtils.parseDate(map.get("Birth"),
-                    "yyyy/M/d")));
             return user;
 
         } catch (TencentCloudSDKException e) {
