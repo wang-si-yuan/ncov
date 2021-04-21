@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.ncov.www.ncov.place.mapper.SigninMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="site.ncov.www.ncov.place.model.vo.SigninVo">
+        <id column="signin_id" property="signinId" />
+        <result column="signin_lat" property="signinLat" />
+        <result column="signin_lng" property="signinLng" />
+        <result column="signin_province" property="signinProvince" />
+        <result column="signin_place" property="signinPlace" />
+        <result column="signin_time" property="signinTime" />
+        <result column="signin_user" property="signinUser" />
+        <result column="signin_type" property="signinType" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_by" property="createBy" />
+        <result column="update_by" property="updateBy" />
+        <result column="is_delete" property="isDelete" />
+        <result column="signnin_city" property="signninCity" />
+        <result column="signin_district" property="signinDistrict" />
+        <result column="signin_street" property="signinStreet" />
+        <result column="signin_street_number" property="signinStreetNumber" />
+    </resultMap>
+
+</mapper>
