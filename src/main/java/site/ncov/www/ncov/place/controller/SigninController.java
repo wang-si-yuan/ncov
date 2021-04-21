@@ -42,7 +42,7 @@ public class SigninController {
     @ApiOperation("自动更新地点")
     @RequestMapping(value = "/autoSignin",method = {RequestMethod.POST})
     public HttpResult autoSignin(AutoSigninParam autoSigninParam) throws FileNotFoundException, WebException {
-        User curr = userService.getCurr(autoSigninParam.getHttpSession());
+        User curr = userService.getCurr();
         Signin signin = autoSigninParam.transEntity();
         signin.setSigninUser(curr);
 

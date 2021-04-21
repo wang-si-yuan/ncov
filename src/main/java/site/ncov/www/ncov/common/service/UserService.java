@@ -22,6 +22,6 @@ import java.io.FileNotFoundException;
 public interface UserService extends IService<UserVo> {
 
     User getUserByDev(MultipartFile pic) throws FileNotFoundException, WebException;
-    User getCurr(HttpSession session) throws FileNotFoundException, WebException;
+    User getCurr() throws FileNotFoundException, WebException;
 
 }

@@ -36,8 +36,6 @@ public class AutoSigninParam {
     @ApiModelProperty(value = "门牌号")
     private String signinStreetNumber;
 
-    private HttpSession httpSession;
-
     public Signin transEntity(){
         Signin signin = BeanConvertUtils.copyProperties(this,Signin.class);
         signin.setSigninType(SigninType.AUTO);

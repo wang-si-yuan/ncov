@@ -1,5 +1,6 @@
 package site.ncov.www.ncov.common.service.impl;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,9 +39,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserVo> implements 
     }
 
     @Override
-    public User getCurr(HttpSession session) throws FileNotFoundException, WebException {
-        SecurityContextImpl securityContext = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
-        UserDetails userDetails = (UserDetails) securityContext.getAuthentication().getPrincipal();
+    public User getCurr() throws FileNotFoundException, WebException {
+//        SecurityContextImpl securityContext = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = User.transEntity(this.lambdaQuery().eq(UserVo::getUserPhone, userDetails.getUsername()).one());
         return user;
     }
