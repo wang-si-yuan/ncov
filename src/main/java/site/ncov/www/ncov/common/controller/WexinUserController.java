@@ -2,6 +2,7 @@ package site.ncov.www.ncov.common.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,11 @@ public class WexinUserController {
 
         userService.save(user.transVo());
         return HttpResult.ok(user.transVo());
+    }
 
+    @ApiOperation("获取当前用户")
+    @RequestMapping(value = "/getCurr",method = {RequestMethod.GET})
+    public HttpResult getCurr() throws FileNotFoundException, WebException {
+        return HttpResult.ok(userService.getCurr());
     }
 }
