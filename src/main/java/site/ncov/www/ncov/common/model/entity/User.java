@@ -53,6 +53,9 @@ public class User {
     @ApiModelProperty(value = "用户证件照片")
     private Picture userCardPhoto;
 
+    @ApiModelProperty(value = "健康码：0绿1黄2红")
+    private UserStatus userStatus;
+
     public UserVo transVo(){
         UserVo userVo = BeanConvertUtils.copyProperties(this, UserVo.class);
         if (this.getUserPhone()!=null&&this.getUserPhone().getPhone()!=null){

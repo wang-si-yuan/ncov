@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import site.ncov.www.ncov.common.model.entity.Gender;
 import site.ncov.www.ncov.common.model.entity.Role;
+import site.ncov.www.ncov.common.model.entity.UserStatus;
 
 /**
  * <p>
@@ -61,6 +62,9 @@ public class UserVo implements Serializable {
 
     @ApiModelProperty(value = "用户证件照片")
     private String userCardPhoto;
+
+    @ApiModelProperty(value = "健康码：0绿1黄2红")
+    private UserStatus userStatus;
 
     private LocalDateTime createTime;
 

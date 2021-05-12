@@ -45,4 +45,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserVo> implements 
         User user = User.transEntity(this.lambdaQuery().eq(UserVo::getUserPhone, userDetails.getUsername()).one());
         return user;
     }
+
+    @Override
+    public Integer addUserBackId(User user) {
+        if (this.save(user.transVo())){
+            return this.lambdaQuery().eq(UserVo::getUserPhone,user.getUserPhone().getPhone()).one().getUserId();
+        }
+        return null;
+    }
 }
