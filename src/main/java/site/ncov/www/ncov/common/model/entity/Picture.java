@@ -66,8 +66,8 @@ public class Picture {
             logger.debug(e.toString());
         }
 
-        url = "http://"+ DataFactory.site +":8000/"+fileName;
-  //      url = "http://"+ DataFactory.site +"/img/"+fileName;
+    //    url = "https://"+ DataFactory.site +":8000/"+fileName;
+        url = "https://"+ DataFactory.site +"/img/"+fileName;
 
     }
 
