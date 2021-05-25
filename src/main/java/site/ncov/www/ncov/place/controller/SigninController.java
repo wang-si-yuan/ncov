@@ -15,9 +15,14 @@ import site.ncov.www.ncov.common.model.entity.User;
 import site.ncov.www.ncov.common.service.UserService;
 import site.ncov.www.ncov.place.model.entity.Signin;
 import site.ncov.www.ncov.place.model.param.AutoSigninParam;
+import site.ncov.www.ncov.place.model.vo.SigninVo;
 import site.ncov.www.ncov.place.service.SigninService;
 
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -52,6 +57,20 @@ public class SigninController {
             return HttpResult.error();
         }
 
+    }
+
+    @ApiOperation("获取7天内到访的城市")
+    @RequestMapping(value = "/weekPlace",method = {RequestMethod.GET})
+    public HttpResult weekPlace() throws FileNotFoundException, WebException {
+        User user = userService.getCurr();
+        List<SigninVo> signinVoList = signinService.lambdaQuery().select(SigninVo::getSignninCity)
+                .between(SigninVo::getCreateTime, LocalDateTime.now().minusWeeks(1), LocalDateTime.now()).list()
+                .stream().distinct().collect(Collectors.toList());
+
+        List<String> citys = new ArrayList<>();
+        signinVoList.forEach(signinVo -> citys.add(signinVo.getSignninCity()));
+
+        return HttpResult.ok(citys);
     }
 
 }
