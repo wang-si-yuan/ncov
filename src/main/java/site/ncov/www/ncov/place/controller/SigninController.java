@@ -64,7 +64,7 @@ public class SigninController {
     public HttpResult weekPlace() throws FileNotFoundException, WebException {
         User user = userService.getCurr();
         List<SigninVo> signinVoList = signinService.lambdaQuery().select(SigninVo::getSignninCity)
-                .between(SigninVo::getCreateTime, LocalDateTime.now().minusWeeks(1), LocalDateTime.now()).list()
+                .eq(SigninVo::getSigninUser, user.getUserId()).between(SigninVo::getCreateTime, LocalDateTime.now().minusWeeks(1), LocalDateTime.now()).list()
                 .stream().distinct().collect(Collectors.toList());
 
         List<String> citys = new ArrayList<>();
