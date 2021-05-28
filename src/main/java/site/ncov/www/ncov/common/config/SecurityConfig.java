@@ -20,6 +20,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import site.ncov.www.ncov.common.model.entity.HttpResult;
 
 import javax.servlet.http.HttpServletResponse;
@@ -115,7 +117,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .permitAll();
         //开启跨域访问
-        http.cors().disable();
+        http.cors();
         //开启模拟请求，比如API POST测试工具的测试，不开启时，API POST为报403错误
         http.csrf().disable();
     }
@@ -124,6 +126,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         //对于在header里面增加token等类似情况，放行所有OPTIONS请求。
         web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        return httpServletRequest -> {
+            CorsConfiguration cfg = new CorsConfiguration();
+            cfg.addAllowedHeader("*");
+            cfg.addAllowedMethod("*");
+            cfg.addAllowedOrigin("*");
+            cfg.setAllowCredentials(true);
+            cfg.checkOrigin("*");
+            return cfg;
+        };
     }
 
 
