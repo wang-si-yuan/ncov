@@ -22,7 +22,7 @@ import site.ncov.www.ncov.vaccination.service.VaccinesService;
  * @since 2021-06-05
  */
 @RestController
-@RequestMapping("/vaccination/")
+@RequestMapping("/vaccination")
 public class VaccinesController {
 
     @Autowired
