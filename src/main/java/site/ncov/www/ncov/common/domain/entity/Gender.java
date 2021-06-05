@@ -1,4 +1,4 @@
-package site.ncov.www.ncov.common.model.entity;
+package site.ncov.www.ncov.common.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.IEnum;
@@ -8,27 +8,25 @@ import com.baomidou.mybatisplus.annotation.IEnum;
  * @version 0.0.0
  */
 
-public enum UserStatus implements IEnum<Integer> {
-    GREEN(0,"绿码"),
-    YELLOW(1,"黄码"),
-    RED(2,"红码");
+public enum Gender implements IEnum<Integer> {
 
+    MAN(0,"男"),WOMAN(1,"女");
     @EnumValue
     private final int value;
-
-    public String getDesc() {
-        return desc;
-    }
-
     private final String desc;
 
-    UserStatus(int value, String desc) {
+    Gender(int value, String desc) {
         this.value = value;
         this.desc = desc;
     }
 
+
     @Override
     public Integer getValue() {
-        return null;
+        return value;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 }

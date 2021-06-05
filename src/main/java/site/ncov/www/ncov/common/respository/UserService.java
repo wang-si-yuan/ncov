@@ -1,14 +1,11 @@
-package site.ncov.www.ncov.common.service;
+package site.ncov.www.ncov.common.respository;
 
 import org.springframework.web.multipart.MultipartFile;
 import site.ncov.www.ncov.common.exception.WebException;
-import site.ncov.www.ncov.common.model.entity.Phone;
-import site.ncov.www.ncov.common.model.entity.Role;
-import site.ncov.www.ncov.common.model.entity.User;
-import site.ncov.www.ncov.common.model.vo.UserVo;
+import site.ncov.www.ncov.common.domain.entity.User;
+import site.ncov.www.ncov.common.domain.vo.UserVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import javax.servlet.http.HttpSession;
 import java.io.FileNotFoundException;
 
 /**

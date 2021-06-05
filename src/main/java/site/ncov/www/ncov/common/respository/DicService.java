@@ -1,6 +1,6 @@
-package site.ncov.www.ncov.common.service;
+package site.ncov.www.ncov.common.respository;
 
-import site.ncov.www.ncov.common.model.vo.DicVo;
+import site.ncov.www.ncov.common.domain.vo.DicVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

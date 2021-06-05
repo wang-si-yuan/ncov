@@ -1,7 +1,7 @@
 package site.ncov.www.ncov.common.exception;
 
 import lombok.Data;
-import site.ncov.www.ncov.common.model.entity.HttpResult;
+import site.ncov.www.ncov.common.domain.entity.HttpResult;
 
 import java.security.PrivilegedActionException;
 

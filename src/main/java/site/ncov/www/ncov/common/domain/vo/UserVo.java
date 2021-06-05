@@ -1,4 +1,4 @@
-package site.ncov.www.ncov.common.model.vo;
+package site.ncov.www.ncov.common.domain.vo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -10,9 +10,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import site.ncov.www.ncov.common.model.entity.Gender;
-import site.ncov.www.ncov.common.model.entity.Role;
-import site.ncov.www.ncov.common.model.entity.UserStatus;
+import site.ncov.www.ncov.common.domain.entity.Gender;
+import site.ncov.www.ncov.common.domain.entity.Role;
+import site.ncov.www.ncov.common.domain.entity.UserStatus;
 
 /**
  * <p>

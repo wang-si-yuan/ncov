@@ -3,7 +3,7 @@
 <mapper namespace="site.ncov.www.ncov.common.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="site.ncov.www.ncov.common.model.vo.UserVo">
+    <resultMap id="BaseResultMap" type="site.ncov.www.ncov.common.domain.vo.UserVo">
         <id column="user_id" property="userId" />
         <result column="user_name" property="userName" />
         <result column="user_phone" property="userPhone" />

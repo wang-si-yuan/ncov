@@ -1,6 +1,6 @@
 package site.ncov.www.ncov.common.mapper;
 
-import site.ncov.www.ncov.common.model.vo.UserVo;
+import site.ncov.www.ncov.common.domain.vo.UserVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

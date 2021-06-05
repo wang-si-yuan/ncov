@@ -1,8 +1,7 @@
-package site.ncov.www.ncov.common.model.entity;
+package site.ncov.www.ncov.common.domain.entity;
 
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import site.ncov.www.ncov.common.utils.HttpStatus;
 import site.ncov.www.ncov.common.exception.WebException;
 

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import site.ncov.www.ncov.common.exception.WebException;
-import site.ncov.www.ncov.common.model.dto.UserDto;
-import site.ncov.www.ncov.common.model.entity.HttpResult;
-import site.ncov.www.ncov.common.service.UserService;
+import site.ncov.www.ncov.common.domain.dto.UserDto;
+import site.ncov.www.ncov.common.domain.entity.HttpResult;
+import site.ncov.www.ncov.common.respository.UserService;
 
 import java.io.FileNotFoundException;
 

@@ -1,4 +1,4 @@
-package site.ncov.www.ncov.common.model.entity;
+package site.ncov.www.ncov.common.domain.entity;
 
 import lombok.Data;
 import site.ncov.www.ncov.common.utils.HttpStatus;

@@ -6,13 +6,12 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import site.ncov.www.ncov.common.exception.WebException;
-import site.ncov.www.ncov.common.model.entity.HttpResult;
-import site.ncov.www.ncov.common.model.entity.User;
-import site.ncov.www.ncov.common.service.UserService;
+import site.ncov.www.ncov.common.domain.entity.HttpResult;
+import site.ncov.www.ncov.common.domain.entity.User;
+import site.ncov.www.ncov.common.respository.UserService;
 import site.ncov.www.ncov.place.model.entity.Signin;
 import site.ncov.www.ncov.place.model.param.AutoSigninParam;
 import site.ncov.www.ncov.place.model.vo.SigninVo;

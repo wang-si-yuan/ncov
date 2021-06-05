@@ -1,4 +1,4 @@
-package site.ncov.www.ncov.common.model.entity;
+package site.ncov.www.ncov.common.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.IEnum;

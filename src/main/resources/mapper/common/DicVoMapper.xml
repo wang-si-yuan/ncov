@@ -3,7 +3,7 @@
 <mapper namespace="site.ncov.www.ncov.common.mapper.DicMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="site.ncov.www.ncov.common.model.vo.DicVo">
+    <resultMap id="BaseResultMap" type="site.ncov.www.ncov.common.domain.vo.DicVo">
         <id column="dic_id" property="dicId" />
         <result column="dic_filed" property="dicFiled" />
         <result column="dic_name" property="dicName" />

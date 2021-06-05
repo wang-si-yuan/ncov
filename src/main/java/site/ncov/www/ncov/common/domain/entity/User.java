@@ -1,4 +1,4 @@
-package site.ncov.www.ncov.common.model.entity;
+package site.ncov.www.ncov.common.domain.entity;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.experimental.Tolerate;
 import org.springframework.security.core.authority.AuthorityUtils;
 import site.ncov.www.ncov.common.exception.WebException;
-import site.ncov.www.ncov.common.model.vo.UserVo;
+import site.ncov.www.ncov.common.domain.vo.UserVo;
 import site.ncov.www.ncov.common.utils.BeanConvertUtils;
 
 import java.io.FileNotFoundException;

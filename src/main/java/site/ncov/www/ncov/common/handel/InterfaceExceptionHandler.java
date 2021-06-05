@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import site.ncov.www.ncov.common.exception.WebException;
-import site.ncov.www.ncov.common.model.entity.HttpResult;
+import site.ncov.www.ncov.common.domain.entity.HttpResult;
 
 /**
  * @author 王思源

@@ -1,8 +1,8 @@
-package site.ncov.www.ncov.common.model.dto;
+package site.ncov.www.ncov.common.domain.dto;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
-import site.ncov.www.ncov.common.model.entity.Phone;
+import site.ncov.www.ncov.common.domain.entity.Phone;
 
 /**
  * @author 王思源

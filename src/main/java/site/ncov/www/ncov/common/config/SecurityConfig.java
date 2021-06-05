@@ -22,7 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-import site.ncov.www.ncov.common.model.entity.HttpResult;
+import site.ncov.www.ncov.common.domain.entity.HttpResult;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;

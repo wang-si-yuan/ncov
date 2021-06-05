@@ -1,4 +1,4 @@
-package site.ncov.www.ncov.common.service.impl;
+package site.ncov.www.ncov.common.respository.impl;
 
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import site.ncov.www.ncov.common.model.entity.User;
-import site.ncov.www.ncov.common.model.vo.UserVo;
-import site.ncov.www.ncov.common.service.UserService;
+import site.ncov.www.ncov.common.domain.entity.User;
+import site.ncov.www.ncov.common.domain.vo.UserVo;
+import site.ncov.www.ncov.common.respository.UserService;
 
 /**
  * @author 王思源

@@ -7,8 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import site.ncov.www.ncov.common.exception.WebException;
-import site.ncov.www.ncov.common.model.entity.*;
-import site.ncov.www.ncov.common.service.UserService;
+import site.ncov.www.ncov.common.domain.entity.*;
+import site.ncov.www.ncov.common.respository.UserService;
 
 import java.io.FileNotFoundException;
 

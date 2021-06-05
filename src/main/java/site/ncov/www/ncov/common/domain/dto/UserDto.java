@@ -1,8 +1,8 @@
-package site.ncov.www.ncov.common.model.dto;
+package site.ncov.www.ncov.common.domain.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import site.ncov.www.ncov.common.model.entity.*;
+import site.ncov.www.ncov.common.domain.entity.*;
 import site.ncov.www.ncov.common.utils.BeanConvertUtils;
 
 import java.time.LocalDate;

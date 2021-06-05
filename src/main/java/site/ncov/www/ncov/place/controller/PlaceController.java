@@ -4,7 +4,6 @@ package site.ncov.www.ncov.place.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
-import site.ncov.www.ncov.common.model.entity.HttpResult;
 
 /**
  * <p>

@@ -1,8 +1,8 @@
-package site.ncov.www.ncov.common.service.impl;
+package site.ncov.www.ncov.common.respository.impl;
 
-import site.ncov.www.ncov.common.model.vo.DicVo;
+import site.ncov.www.ncov.common.domain.vo.DicVo;
 import site.ncov.www.ncov.common.mapper.DicMapper;
-import site.ncov.www.ncov.common.service.DicService;
+import site.ncov.www.ncov.common.respository.DicService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

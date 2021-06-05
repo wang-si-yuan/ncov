@@ -63,8 +63,8 @@ public class MysqlGenerator {
         pc.setModuleName("place");
         pc.setParent("site.ncov.www.ncov");
         pc.setEntity("model.vo");
-        pc.setService("service");
-        pc.setServiceImpl("service.impl");
+        pc.setService("respository");
+        pc.setServiceImpl("respository.impl");
         mpg.setPackageInfo(pc);
 
         // 自定义配置
