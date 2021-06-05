@@ -44,7 +44,8 @@ public class MysqlGenerator {
         gc.setAuthor("wangsiyuan"); //设置作者
         gc.setOpen(false);
         gc.setFileOverride(true); //第二次生成会把第一次生成的覆盖掉
-        gc.setServiceName("%sService"); //生成的service接口名字首字母是否为I，这样设置就没有
+        gc.setServiceName("%sRespository"); //生成的service接口名字首字母是否为I，这样设置就没有
+        gc.setServiceImplName("%sRespositoryImpl");
         gc.setBaseResultMap(true); //生成resultMap
         gc.setSwagger2(true);
         gc.setEntityName("%sVo");
@@ -60,9 +61,9 @@ public class MysqlGenerator {
 
         // 3、包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("place");
+        pc.setModuleName("vaccination");
         pc.setParent("site.ncov.www.ncov");
-        pc.setEntity("model.vo");
+        pc.setEntity("domain.vo");
         pc.setService("respository");
         pc.setServiceImpl("respository.impl");
         mpg.setPackageInfo(pc);
