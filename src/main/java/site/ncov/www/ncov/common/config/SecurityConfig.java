@@ -22,10 +22,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import site.ncov.www.ncov.common.domain.entity.HttpResult;
+import sun.security.util.SecurityProperties;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 /**
  * @author 王思源
@@ -42,6 +45,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfiguration =new CorsConfiguration();
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:8080","https://www.2019-ncov.site"));
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "HEAD", "POST", "PUT", "DELETE","OPTIONS"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**",corsConfiguration);
+        return source;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -117,7 +130,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .permitAll();
         //开启跨域访问
-        http.cors().disable();
+        http.cors();
         //开启模拟请求，比如API POST测试工具的测试，不开启时，API POST为报403错误
         http.csrf().disable();
     }
@@ -126,19 +139,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         //对于在header里面增加token等类似情况，放行所有OPTIONS请求。
         web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
-    }
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        return httpServletRequest -> {
-            CorsConfiguration cfg = new CorsConfiguration();
-            cfg.addAllowedHeader("*");
-            cfg.addAllowedMethod("*");
-            cfg.addAllowedOrigin("http://127.0.0.1:8080");
-            cfg.setAllowCredentials(true);
-            cfg.checkOrigin("*");
-            return cfg;
-        };
     }
 
 
