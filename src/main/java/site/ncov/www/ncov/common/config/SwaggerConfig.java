@@ -45,6 +45,26 @@ public class SwaggerConfig {
                 .build();
     }
 
+    @Bean
+    public Docket vaccinationApiConfig(){
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("vaccinationAPI")
+                .host(DataFactory.site)
+                .apiInfo(vaccinationApiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("site.ncov.www.ncov.vaccination"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo vaccinationApiInfo() {
+        return new ApiInfoBuilder()
+                .title("疫苗模块文档")
+                .description("疫苗模块api定义")
+                .version("1.0")
+                .build();
+    }
+
     private ApiInfo commonApiInfo(){
 
         return new ApiInfoBuilder()

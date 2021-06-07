@@ -1,6 +1,7 @@
 package site.ncov.www.ncov.vaccination.controller;
 
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import site.ncov.www.ncov.vaccination.service.VaccinesService;
  * @author wangsiyuan
  * @since 2021-06-05
  */
+
+@Api(tags="疫苗模块")
 @RestController
 @RequestMapping("/vaccination")
 public class VaccinesController {
