@@ -117,7 +117,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .permitAll();
         //开启跨域访问
-        http.cors();
+        http.cors().disable();
         //开启模拟请求，比如API POST测试工具的测试，不开启时，API POST为报403错误
         http.csrf().disable();
     }
