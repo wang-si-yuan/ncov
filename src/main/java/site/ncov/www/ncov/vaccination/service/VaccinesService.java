@@ -1,5 +1,6 @@
 package site.ncov.www.ncov.vaccination.service;
 
+import site.ncov.www.ncov.vaccination.controller.dto.CurrVaccinationsDto;
 import site.ncov.www.ncov.vaccination.domain.Vaccines;
 
 public interface VaccinesService {
