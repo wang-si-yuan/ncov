@@ -3,6 +3,7 @@ package site.ncov.www.ncov.common.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,11 +51,11 @@ public class GovernmentUserController {
     @RequestMapping(value = "/queryUserList",method = {RequestMethod.GET})
     public HttpResult queryUserList(UserDto userDto) {
         Page<UserVo> page = userService.lambdaQuery().like(UserVo::getUserIdcard, userDto.getUserIdcard())
-                .like(UserVo::getUserName, userDto.getUserName())
-                .like(UserVo::getUserPhone, userDto.getUserPhone())
-                .like(UserVo::getUserGender, userDto.getUserGender())
-                .like(UserVo::getUserStatus, userDto.getUserStatus())
-                .like(UserVo::getUserRole, userDto.getUserRole()).page(new Page<UserVo>(userDto.getCurr(),10));
+                .like(!StringUtils.isEmpty(userDto.getUserName()), UserVo::getUserName, userDto.getUserName())
+                .like(!StringUtils.isEmpty(userDto.getUserPhone()),UserVo::getUserPhone, userDto.getUserPhone())
+                .like(userDto.getUserGender()!=null,UserVo::getUserGender, userDto.getUserGender())
+                .like(userDto.getUserStatus()!=null,UserVo::getUserStatus, userDto.getUserStatus())
+                .like(userDto.getUserRole()!=null,UserVo::getUserRole, userDto.getUserRole()).page(new Page<UserVo>(userDto.getCurr(),10));
         return HttpResult.ok(page);
     }
 }
