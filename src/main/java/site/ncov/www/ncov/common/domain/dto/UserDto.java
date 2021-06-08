@@ -18,7 +18,7 @@ public class UserDto {
     private String userName;
 
     @ApiModelProperty(value = "用户手机号")
-    private Phone userPhone;
+    private String userPhone;
 
     @ApiModelProperty(value = "身份证号")
     private String userIdcard;
