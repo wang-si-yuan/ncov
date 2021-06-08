@@ -1,6 +1,7 @@
 package site.ncov.www.ncov.place.controller;
 
 
+import com.baomidou.mybatisplus.extension.api.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import site.ncov.www.ncov.common.domain.vo.UserVo;
 import site.ncov.www.ncov.common.exception.WebException;
 import site.ncov.www.ncov.common.domain.entity.HttpResult;
 import site.ncov.www.ncov.common.domain.entity.User;
 import site.ncov.www.ncov.common.respository.UserService;
+import site.ncov.www.ncov.place.domain.vo.RiskVo;
 import site.ncov.www.ncov.place.model.entity.Signin;
 import site.ncov.www.ncov.place.model.param.AutoSigninParam;
 import site.ncov.www.ncov.place.model.vo.SigninVo;
+import site.ncov.www.ncov.place.respository.RiskRespository;
 import site.ncov.www.ncov.place.service.SigninService;
 
 import java.io.FileNotFoundException;
@@ -43,13 +47,17 @@ public class SigninController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RiskRespository riskRespository;
+
     @ApiOperation("自动更新地点")
     @RequestMapping(value = "/autoSignin",method = {RequestMethod.POST})
     public HttpResult autoSignin(AutoSigninParam autoSigninParam) throws FileNotFoundException, WebException {
         User curr = userService.getCurr();
         Signin signin = autoSigninParam.transEntity();
+        curr.setUserStatus(riskRespository.USER_STATUS(autoSigninParam.getSigninDistrict()));
         signin.setSigninUser(curr);
-
+        userService.saveOrUpdate(curr.transVo());
         if (signinService.save(signin.transVo())){
             return HttpResult.ok(signin);
         } else {
@@ -70,6 +78,23 @@ public class SigninController {
         signinVoList.forEach(signinVo -> citys.add(signinVo.getSignninCity()));
 
         return HttpResult.ok(citys);
+    }
+
+    @ApiOperation("设置风险城市")
+    @RequestMapping(value = "/setRisk",method = {RequestMethod.GET})
+    public HttpResult setRisk(String place,Integer level) throws FileNotFoundException, WebException {
+        RiskVo riskVo = new RiskVo();
+        riskVo = riskRespository.lambdaQuery().eq(RiskVo::getRiskPlace, place).one();
+        riskVo.setRiskLevel(level);
+        riskVo.setRiskPlace(place);
+        riskRespository.saveOrUpdate(riskVo);
+        if (level.equals(2) || level.equals(3)) {
+            List<SigninVo> list = signinService.lambdaQuery().eq(SigninVo::getSigninDistrict, place).list();
+            list.forEach(x -> {
+                userService.lambdaUpdate().eq(UserVo::getUserId, x.getSigninUser()).set(UserVo::getUserStatus, level-1);
+            });
+        }
+        return HttpResult.ok();
     }
 
 }

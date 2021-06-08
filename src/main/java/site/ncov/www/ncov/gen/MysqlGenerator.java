@@ -61,7 +61,7 @@ public class MysqlGenerator {
 
         // 3、包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("vaccination");
+        pc.setModuleName("place");
         pc.setParent("site.ncov.www.ncov");
         pc.setEntity("domain.vo");
         pc.setService("respository");

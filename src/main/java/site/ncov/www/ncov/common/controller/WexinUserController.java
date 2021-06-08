@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import site.ncov.www.ncov.common.domain.vo.UserVo;
 import site.ncov.www.ncov.common.exception.WebException;
 import site.ncov.www.ncov.common.domain.entity.*;
 import site.ncov.www.ncov.common.respository.UserService;
@@ -39,8 +40,12 @@ public class WexinUserController {
         user.setUserPhone(new Phone(phone));
         user.setUserRole(Role.NORMAL);
 
-        userService.save(user.transVo());
-        return HttpResult.ok(user.transVo());
+        UserVo one = userService.lambdaQuery().eq(UserVo::getUserIdcard, user.getUserIdcard()).one();
+        if (one !=null) {
+            userService.save(user.transVo());
+            return HttpResult.ok(user.transVo());
+        }
+        return HttpResult.error();
     }
 
     @ApiOperation("获取当前用户")
