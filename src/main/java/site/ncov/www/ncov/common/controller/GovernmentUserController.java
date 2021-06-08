@@ -50,7 +50,8 @@ public class GovernmentUserController {
     @ApiOperation("管理员查询账户列表")
     @RequestMapping(value = "/queryUserList",method = {RequestMethod.GET})
     public HttpResult queryUserList(UserDto userDto) {
-        Page<UserVo> page = userService.lambdaQuery().like(UserVo::getUserIdcard, userDto.getUserIdcard())
+        Page<UserVo> page = userService.lambdaQuery()
+                .like(!StringUtils.isEmpty(userDto.getUserIdcard()), UserVo::getUserIdcard, userDto.getUserIdcard())
                 .like(!StringUtils.isEmpty(userDto.getUserName()), UserVo::getUserName, userDto.getUserName())
                 .like(!StringUtils.isEmpty(userDto.getUserPhone()),UserVo::getUserPhone, userDto.getUserPhone())
                 .like(userDto.getUserGender()!=null,UserVo::getUserGender, userDto.getUserGender())
