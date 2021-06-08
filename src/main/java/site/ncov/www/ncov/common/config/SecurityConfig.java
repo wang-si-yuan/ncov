@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration =new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:8080","https://www.2019-ncov.site"));
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:8080","https://www.2019-ncov.site","118.195.156.48:443"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "HEAD", "POST", "PUT", "DELETE","OPTIONS"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
