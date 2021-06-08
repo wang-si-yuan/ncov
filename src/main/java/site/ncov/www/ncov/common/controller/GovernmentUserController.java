@@ -36,7 +36,6 @@ public class GovernmentUserController {
     }
 
     @ApiOperation("管理员创建账户")
-    @PreAuthorize("hasAuthority('GOVERNMENT_ADMIN')")
     @RequestMapping(value = "/addUser",method = {RequestMethod.POST})
     public HttpResult addUser(UserDto userDto) {
         Integer id = userService.addUserBackId(userDto.transEntity());
@@ -48,7 +47,6 @@ public class GovernmentUserController {
     }
 
     @ApiOperation("管理员查询账户列表")
-    @PreAuthorize("hasAuthority('GOVERNMENT_ADMIN')")
     @RequestMapping(value = "/queryUserList",method = {RequestMethod.GET})
     public HttpResult queryUserList(UserDto userDto) {
         Page<UserVo> page = userService.lambdaQuery().like(UserVo::getUserIdcard, userDto.getUserIdcard())
