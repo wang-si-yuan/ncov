@@ -9,6 +9,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import site.ncov.www.ncov.common.domain.entity.Role;
+import site.ncov.www.ncov.common.domain.entity.UserStatus;
 import site.ncov.www.ncov.common.domain.vo.UserVo;
 import site.ncov.www.ncov.common.exception.WebException;
 import site.ncov.www.ncov.common.domain.dto.UserDto;
@@ -54,9 +56,16 @@ public class GovernmentUserController {
                 .like(!StringUtils.isEmpty(userDto.getUserIdcard()), UserVo::getUserIdcard, userDto.getUserIdcard())
                 .like(!StringUtils.isEmpty(userDto.getUserName()), UserVo::getUserName, userDto.getUserName())
                 .like(!StringUtils.isEmpty(userDto.getUserPhone()),UserVo::getUserPhone, userDto.getUserPhone())
-                .like(userDto.getUserGender()!=null,UserVo::getUserGender, userDto.getUserGender())
-                .like(userDto.getUserStatus()!=null,UserVo::getUserStatus, userDto.getUserStatus())
-                .like(userDto.getUserRole()!=null,UserVo::getUserRole, userDto.getUserRole()).page(new Page<UserVo>(userDto.getCurr(),10));
+                .eq(userDto.getUserGender()!=null,UserVo::getUserGender, userDto.getUserGender())
+                .eq(userDto.getUserStatus()!=null,UserVo::getUserStatus, userDto.getUserStatus())
+                .eq(userDto.getUserRole()!=null,UserVo::getUserRole, userDto.getUserRole()).page(new Page<UserVo>(userDto.getCurr(),10));
         return HttpResult.ok(page);
+    }
+
+    @ApiOperation("管理员修改用户")
+    @RequestMapping(value = "/modifyUser",method = {RequestMethod.POST})
+    public HttpResult modifyUser(String id, Role role) {
+        userService.lambdaUpdate().eq(UserVo::getUserId, id).set(UserVo::getUserRole, role).update();
+        return HttpResult.ok();
     }
 }

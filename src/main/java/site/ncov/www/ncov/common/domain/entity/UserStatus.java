@@ -2,6 +2,8 @@ package site.ncov.www.ncov.common.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.IEnum;
+import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.Data;
 
 /**
  * @author 王思源
@@ -20,6 +22,7 @@ public enum UserStatus implements IEnum<Integer> {
         return desc;
     }
 
+    @JsonValue
     private final String desc;
 
     UserStatus(int value, String desc) {
@@ -29,6 +32,6 @@ public enum UserStatus implements IEnum<Integer> {
 
     @Override
     public Integer getValue() {
-        return null;
+        return value;
     }
 }

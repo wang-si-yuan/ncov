@@ -20,6 +20,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.session.web.http.CookieSerializer;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -46,9 +48,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Bean
+    public CookieSerializer httpSessionIdResolver(){
+        DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
+        cookieSerializer.setCookieName("SESSION");
+        cookieSerializer.setUseHttpOnlyCookie(false);
+        cookieSerializer.setSameSite("None");
+        cookieSerializer.setUseSecureCookie(true);
+        return cookieSerializer;
+    }
+
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration =new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:8080","https://www.2019-ncov.site","118.195.156.48:443"));
+        corsConfiguration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:8070","https://www.2019-ncov.site","118.195.156.48:443"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "HEAD", "POST", "PUT", "DELETE","OPTIONS"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -131,6 +143,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
         //开启跨域访问
         http.cors();
+        http.csrf().disable();
         //开启模拟请求，比如API POST测试工具的测试，不开启时，API POST为报403错误
         http.csrf().disable();
     }

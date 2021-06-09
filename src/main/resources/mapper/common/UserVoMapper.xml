@@ -15,6 +15,7 @@
         <result column="user_role" property="userRole" />
         <result column="user_birth" property="userBirth" />
         <result column="user_card_photo" property="userCardPhoto" />
+        <result column="user_status" property="userStatus" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
         <result column="create_by" property="createBy" />

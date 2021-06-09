@@ -14,6 +14,9 @@ import java.time.LocalDate;
 
 @Data
 public class UserDto {
+
+    private Integer userId;
+
     @ApiModelProperty(value = "姓名")
     private String userName;
 
