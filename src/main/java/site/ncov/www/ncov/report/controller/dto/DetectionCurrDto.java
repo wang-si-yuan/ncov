@@ -1,6 +1,7 @@
 package site.ncov.www.ncov.report.controller.dto;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import site.ncov.www.ncov.common.utils.BeanConvertUtils;
 import site.ncov.www.ncov.report.domain.vo.DetectionVo;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @version 0.0.0
  */
 
+@Data
 public class DetectionCurrDto {
     @ApiModelProperty(value = "检测时间")
     private LocalDateTime detectionTime;
