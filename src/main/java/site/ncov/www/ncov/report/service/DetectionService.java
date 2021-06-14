@@ -24,5 +24,5 @@ public interface DetectionService {
 
     LocalDate detectionDate(Integer id);
 
-    List<DetectionCurrDto> getCurr(Integer userId);
+    DetectionCurrDto getCurr(Integer userId);
 }

@@ -58,9 +58,9 @@ public class DetectionRespositoryImpl extends ServiceImpl<DetectionMapper, Detec
     }
 
     @Override
-    public List<DetectionCurrDto> getCurr(Integer userId) {
+    public DetectionCurrDto getCurr(Integer userId) {
         List<DetectionVo> detectionVoList = this.lambdaQuery().eq(DetectionVo::getUserId, userId).orderByDesc(DetectionVo::getDetectionTime).list();
 
-        return DetectionCurrDto.transDtoList(detectionVoList);
+        return DetectionCurrDto.transDto(detectionVoList.get(0));
     }
 }

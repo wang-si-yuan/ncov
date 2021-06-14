@@ -26,5 +26,5 @@ public interface DetectionRespository extends IService<DetectionVo> {
 
     LocalDate detectionDate(Integer id);
 
-    List<DetectionCurrDto> getCurr(Integer userId);
+    DetectionCurrDto getCurr(Integer userId);
 }

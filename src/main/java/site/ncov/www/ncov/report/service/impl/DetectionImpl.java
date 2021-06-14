@@ -44,7 +44,7 @@ public class DetectionImpl implements DetectionService {
     }
 
     @Override
-    public List<DetectionCurrDto> getCurr(Integer userId) {
+    public DetectionCurrDto getCurr(Integer userId) {
         return detectionRespository.getCurr(userId);
     }
 }

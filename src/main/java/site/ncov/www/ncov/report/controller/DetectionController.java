@@ -70,8 +70,8 @@ public class DetectionController {
     @RequestMapping(value = "/getCurr", method = {RequestMethod.GET})
     public HttpResult getCurr() throws FileNotFoundException, WebException {
         User curr = userService.getCurr();
-        List<DetectionCurrDto> detectionCurrDtoList = detectionService.getCurr(curr.getUserId());
-        return HttpResult.ok(detectionCurrDtoList);
+        DetectionCurrDto detectionCurrDto = detectionService.getCurr(curr.getUserId());
+        return HttpResult.ok(detectionCurrDto);
     }
 
 }
