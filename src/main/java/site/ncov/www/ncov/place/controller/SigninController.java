@@ -74,7 +74,7 @@ public class SigninController {
     }
 
     @ApiOperation("更新地点")
-    @RequestMapping(value = "/autoSignin",method = {RequestMethod.POST})
+    @RequestMapping(value = "/signin",method = {RequestMethod.POST})
     public HttpResult signin(SigninParam signinParam) throws FileNotFoundException, WebException {
         User curr = userService.getCurr();
         SigninVo signinVo = signinParam.transVo();
