@@ -20,13 +20,19 @@ public class DetectionCurrDto {
     private LocalDateTime detectionTime;
 
     @ApiModelProperty(value = "检测结果")
-    private Boolean detectionResult;
+    private String detectionResult;
 
     @ApiModelProperty(value = "工作人员")
     private String workingUser;
 
     public static DetectionCurrDto transDto(DetectionVo detectionVo) {
-        return BeanConvertUtils.copyProperties(detectionVo, DetectionCurrDto.class);
+        DetectionCurrDto detectionCurrDto = BeanConvertUtils.copyProperties(detectionVo, DetectionCurrDto.class);
+        if (detectionVo.getDetectionResult()) {
+            detectionCurrDto.setDetectionResult("阳性") ;
+        } else {
+            detectionCurrDto.setDetectionResult("阴性") ;
+        }
+        return detectionCurrDto;
     }
 
     public static List<DetectionCurrDto> transDtoList(List<DetectionVo>  detectionVoList) {
