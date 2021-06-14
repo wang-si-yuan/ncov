@@ -1,11 +1,14 @@
 package site.ncov.www.ncov.place.controller;
 
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.extra.qrcode.QrCodeUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,6 +24,7 @@ import site.ncov.www.ncov.place.model.dto.PlaceDto;
 import site.ncov.www.ncov.place.model.vo.PlaceVo;
 import site.ncov.www.ncov.place.service.PlaceService;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -54,6 +58,15 @@ public class PlaceController {
         Page<PlaceVo> page = placeService.lambdaQuery()
                 .like(!StringUtils.isEmpty(placeDto.getPlaceTitle()), PlaceVo::getPlaceTitle, placeDto.getPlaceTitle())
                 .page(new Page<PlaceVo>(placeDto.getCurr(), 10));
+        page.getRecords().forEach(placeVo -> {
+            try {
+                QrCodeUtil.generate(placeVo.getPlaceId().toString(), 300, 300, FileUtil.file(
+                        ResourceUtils.getURL("classpath:").getPath()+"static/img/"+ placeVo.getPlaceId().toString() + ".jpg"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        });
         return HttpResult.ok(page);
     }
 
