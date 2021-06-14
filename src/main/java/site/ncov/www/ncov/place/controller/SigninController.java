@@ -22,6 +22,7 @@ import site.ncov.www.ncov.place.model.dto.AddRiskDto;
 import site.ncov.www.ncov.place.model.dto.ExcelMapping;
 import site.ncov.www.ncov.place.model.entity.Signin;
 import site.ncov.www.ncov.place.model.param.AutoSigninParam;
+import site.ncov.www.ncov.place.model.param.SigninParam;
 import site.ncov.www.ncov.place.model.vo.SigninVo;
 import site.ncov.www.ncov.place.respository.RiskRespository;
 import site.ncov.www.ncov.place.service.SigninService;
@@ -66,6 +67,22 @@ public class SigninController {
         userService.saveOrUpdate(curr.transVo());
         if (signinService.save(signin.transVo())){
             return HttpResult.ok(signin);
+        } else {
+            return HttpResult.error();
+        }
+
+    }
+
+    @ApiOperation("更新地点")
+    @RequestMapping(value = "/autoSignin",method = {RequestMethod.POST})
+    public HttpResult signin(SigninParam signinParam) throws FileNotFoundException, WebException {
+        User curr = userService.getCurr();
+        SigninVo signinVo = signinParam.transVo();
+        curr.setUserStatus(riskRespository.USER_STATUS(signinVo.getSigninDistrict()));
+        signinVo.setSigninUser(curr.getUserId());
+        userService.saveOrUpdate(curr.transVo());
+        if (signinService.save(signinVo)){
+            return HttpResult.ok(signinVo);
         } else {
             return HttpResult.error();
         }

@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import site.ncov.www.ncov.place.model.entity.SigninType;
 
 /**
  * <p>
@@ -60,7 +61,7 @@ public class SigninVo implements Serializable {
     private Integer signinUser;
 
     @ApiModelProperty(value = "0:自主签到；1：小程序自动签到；2：进店签到")
-    private Integer signinType;
+    private SigninType signinType;
 
     private LocalDateTime createTime;
 
