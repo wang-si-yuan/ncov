@@ -34,7 +34,7 @@ public class DetectionsDto {
     private LocalDateTime detectionTime;
 
     @ApiModelProperty(value = "检测结果")
-    private Boolean detectionResult;
+    private String detectionResult;
 
     @ApiModelProperty(value = "工作人员")
     private String workingUser;
@@ -42,7 +42,12 @@ public class DetectionsDto {
     public void transDto(SFunction<Integer, UserVo> userRe, DetectionVo detectionVo) {
         detectionId = detectionVo.getDetectionId();
         detectionTime = detectionVo.getDetectionTime();
-        detectionResult = detectionVo.getDetectionResult();
+        if (detectionVo.getDetectionResult()) {
+            detectionResult = "阳性";
+        } else {
+            detectionResult = "阴性";
+        }
+
         workingUser = detectionVo.getWorkingUser();
         UserVo userVo = userRe.apply(detectionVo.getUserId());
         userName = userVo.getUserName();
