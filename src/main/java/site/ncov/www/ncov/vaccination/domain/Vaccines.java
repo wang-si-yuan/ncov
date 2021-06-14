@@ -5,6 +5,9 @@ import lombok.Data;
 import site.ncov.www.ncov.common.utils.BeanConvertUtils;
 import site.ncov.www.ncov.vaccination.domain.vo.VaccinesVo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author 王思源
  * @version 0.0.0
@@ -33,5 +36,11 @@ public class Vaccines {
     public static Vaccines transEntity(VaccinesVo vaccinesVo) {
         Vaccines vaccines = BeanConvertUtils.copyProperties(vaccinesVo, Vaccines.class);
         return vaccines;
+    }
+
+    public static List<VaccinesVo> transVaccinesVos(List<Vaccines> vaccinesList) {
+        List<VaccinesVo> vaccinesVoList = new ArrayList<>();
+        vaccinesList.forEach(vaccines -> vaccinesVoList.add(vaccines.transVaccinesVo()));
+        return vaccinesVoList;
     }
 }

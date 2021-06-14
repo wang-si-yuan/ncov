@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.IEnum;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicReference;
+
 /**
  * @author 王思源
  * @version 0.0.0
@@ -31,5 +34,15 @@ public enum Gender implements IEnum<Integer> {
 
     public String getDesc() {
         return desc;
+    }
+
+    public static Gender getGenderByDesc(String desc) {
+        Gender[] values = Gender.values();
+        for (Gender gender : values) {
+            if (gender.desc.equals(desc)) {
+                return gender;
+            }
+        }
+        return null;
     }
 }

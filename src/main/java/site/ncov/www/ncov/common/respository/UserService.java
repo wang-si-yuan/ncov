@@ -21,5 +21,6 @@ public interface UserService extends IService<UserVo> {
     User getUserByDev(MultipartFile pic) throws FileNotFoundException, WebException;
     User getCurr() throws FileNotFoundException, WebException;
     Integer addUserBackId(User user);
+    Integer getUserByIdCard(String card);
 
 }

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
  * @since 2021-06-08
  */
 @Controller
-@RequestMapping("/place/riskVo")
+@RequestMapping("/risk")
 public class RiskController {
 
 }

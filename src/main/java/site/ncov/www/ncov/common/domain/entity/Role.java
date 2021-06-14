@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.IEnum;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+
 /**
  * @author 王思源
  * @version 0.0.0
@@ -37,5 +38,15 @@ public enum Role implements IEnum<Integer> {
 
     public String getDesc() {
         return desc;
+    }
+
+    public static Role getRoleByDesc(String desc) {
+        Role[] values = Role.values();
+        for (Role role : values) {
+            if (role.desc.equals(desc)) {
+                return role;
+            }
+        }
+        return null;
     }
 }

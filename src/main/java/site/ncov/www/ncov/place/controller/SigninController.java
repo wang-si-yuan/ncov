@@ -2,19 +2,24 @@ package site.ncov.www.ncov.place.controller;
 
 
 import com.baomidou.mybatisplus.extension.api.R;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import site.ncov.www.ncov.common.domain.vo.UserVo;
 import site.ncov.www.ncov.common.exception.WebException;
 import site.ncov.www.ncov.common.domain.entity.HttpResult;
 import site.ncov.www.ncov.common.domain.entity.User;
 import site.ncov.www.ncov.common.respository.UserService;
 import site.ncov.www.ncov.place.domain.vo.RiskVo;
+import site.ncov.www.ncov.place.model.dto.AddRiskDto;
+import site.ncov.www.ncov.place.model.dto.ExcelMapping;
 import site.ncov.www.ncov.place.model.entity.Signin;
 import site.ncov.www.ncov.place.model.param.AutoSigninParam;
 import site.ncov.www.ncov.place.model.vo.SigninVo;
@@ -22,6 +27,7 @@ import site.ncov.www.ncov.place.respository.RiskRespository;
 import site.ncov.www.ncov.place.service.SigninService;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,20 +87,32 @@ public class SigninController {
     }
 
     @ApiOperation("设置风险城市")
-    @RequestMapping(value = "/setRisk",method = {RequestMethod.GET})
-    public HttpResult setRisk(String place,Integer level) throws FileNotFoundException, WebException {
-        RiskVo riskVo = new RiskVo();
-        riskVo = riskRespository.lambdaQuery().eq(RiskVo::getRiskPlace, place).one();
-        riskVo.setRiskLevel(level);
-        riskVo.setRiskPlace(place);
-        riskRespository.saveOrUpdate(riskVo);
-        if (level.equals(2) || level.equals(3)) {
-            List<SigninVo> list = signinService.lambdaQuery().eq(SigninVo::getSigninDistrict, place).list();
+    @RequestMapping(value = "/addRisk",method = {RequestMethod.POST})
+    public HttpResult addRisk(MultipartFile risks) throws IOException, WebException {
+        List<AddRiskDto> addRiskDtoList = ExcelMapping.transAddRiskDto(risks);
+        List<RiskVo> riskVoList = AddRiskDto.transVoList(addRiskDtoList);
+        riskVoList.forEach(riskVo -> {
+            RiskVo one = riskRespository.lambdaQuery().eq(RiskVo::getRiskPlace, riskVo.getRiskPlace()).one();
+            if (one != null) {
+                riskRespository.lambdaUpdate().eq(RiskVo::getRiskPlace, riskVo.getRiskPlace()).set(RiskVo::getRiskLevel, riskVo.getRiskLevel()).update();
+            } else {
+                riskRespository.save(riskVo);
+            }
+            List<SigninVo> list = signinService.lambdaQuery().eq(SigninVo::getSigninDistrict, riskVo.getRiskPlace()).list();
             list.forEach(x -> {
-                userService.lambdaUpdate().eq(UserVo::getUserId, x.getSigninUser()).set(UserVo::getUserStatus, level-1);
+                userService.lambdaUpdate().eq(UserVo::getUserId, x.getSigninUser()).set(UserVo::getUserStatus, riskVo.getRiskLevel()-1).update();
             });
-        }
+
+        });
+
         return HttpResult.ok();
+    }
+
+    @ApiOperation("设置风险城市")
+    @RequestMapping(value = "/queryRisk",method = {RequestMethod.GET})
+    public HttpResult queryRisk(Long curr) {
+        Page<RiskVo> page = riskRespository.lambdaQuery().page(new Page<>(curr, 10));
+        return HttpResult.ok(page);
     }
 
 }

@@ -2,6 +2,8 @@ package site.ncov.www.ncov.place.model.entity;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.IEnum;
+import com.fasterxml.jackson.annotation.JsonValue;
+import site.ncov.www.ncov.common.domain.entity.Role;
 
 /**
  * @author 王思源
@@ -22,6 +24,8 @@ public enum PlaceType implements IEnum<Integer> {
 
     @EnumValue
     private final int value;
+
+    @JsonValue
     private final String desc;
 
     public String getDesc() {
@@ -35,6 +39,16 @@ public enum PlaceType implements IEnum<Integer> {
 
     @Override
     public Integer getValue() {
+        return value;
+    }
+
+    public static PlaceType getPlaceByDesc(String desc) {
+        PlaceType[] values = PlaceType.values();
+        for (PlaceType placeType : values) {
+            if (placeType.desc.equals(desc)) {
+                return placeType;
+            }
+        }
         return null;
     }
 }

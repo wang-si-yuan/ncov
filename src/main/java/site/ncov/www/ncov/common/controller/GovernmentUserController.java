@@ -1,5 +1,7 @@
 package site.ncov.www.ncov.common.controller;
 
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,7 +11,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import site.ncov.www.ncov.common.domain.dto.AddUserDto;
+import site.ncov.www.ncov.common.domain.dto.ExcelMapping;
 import site.ncov.www.ncov.common.domain.entity.Role;
+import site.ncov.www.ncov.common.domain.entity.User;
 import site.ncov.www.ncov.common.domain.entity.UserStatus;
 import site.ncov.www.ncov.common.domain.vo.UserVo;
 import site.ncov.www.ncov.common.exception.WebException;
@@ -18,7 +24,9 @@ import site.ncov.www.ncov.common.domain.entity.HttpResult;
 import site.ncov.www.ncov.common.respository.UserService;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 王思源
@@ -66,6 +74,17 @@ public class GovernmentUserController {
     @RequestMapping(value = "/modifyUser",method = {RequestMethod.POST})
     public HttpResult modifyUser(String id, Role role) {
         userService.lambdaUpdate().eq(UserVo::getUserId, id).set(UserVo::getUserRole, role).update();
+        return HttpResult.ok();
+    }
+
+    @ApiOperation("管理员添加用户")
+    @RequestMapping(value = "/addUsers",method = {RequestMethod.POST})
+    public HttpResult addUsers(MultipartFile users) throws IOException {
+        List<AddUserDto> addUserDtoList = ExcelMapping.transAddUser(users);
+        List<User> userList = AddUserDto.transEntityList(addUserDtoList);
+
+        List<UserVo> userVoList = User.transVos(userList);
+        userService.saveBatch(userVoList);
         return HttpResult.ok();
     }
 }

@@ -2,6 +2,7 @@ package site.ncov.www.ncov.place.model.entity;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.IEnum;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * @author 王思源
@@ -18,6 +19,8 @@ public enum SigninType implements IEnum<Integer> {
 
     @EnumValue
     private final int value;
+
+    @JsonValue
     private final String desc;
 
     SigninType(int value, String desc) {

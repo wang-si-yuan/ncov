@@ -51,4 +51,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserVo> implements 
         }
         return null;
     }
+
+    @Override
+    public Integer getUserByIdCard(String card) {
+        return this.lambdaQuery().eq(UserVo::getUserIdcard, card).one().getUserId();
+    }
 }

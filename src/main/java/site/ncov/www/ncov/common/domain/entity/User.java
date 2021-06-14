@@ -11,6 +11,8 @@ import site.ncov.www.ncov.common.utils.BeanConvertUtils;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 王思源
@@ -70,6 +72,12 @@ public class User {
             userVo.setUserPwd(this.getUserPwd().getEpwd());
         }
         return userVo;
+    }
+
+    public static List<UserVo> transVos(List<User> userList) {
+        List<UserVo> userVoList = new ArrayList<>();
+        userList.forEach(user -> userVoList.add(user.transVo()));
+        return userVoList;
     }
 
     public static User transEntity(UserVo userVo) throws FileNotFoundException, WebException {
