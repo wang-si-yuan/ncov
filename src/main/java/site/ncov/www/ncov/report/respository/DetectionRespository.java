@@ -1,6 +1,7 @@
 package site.ncov.www.ncov.report.respository;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import site.ncov.www.ncov.report.controller.dto.DetectionCurrDto;
 import site.ncov.www.ncov.report.controller.dto.DetectionsDto;
 import site.ncov.www.ncov.report.domain.Detection;
 import site.ncov.www.ncov.report.domain.vo.DetectionVo;
@@ -24,4 +25,6 @@ public interface DetectionRespository extends IService<DetectionVo> {
     void addDetections(List<Detection> detectionList);
 
     LocalDate detectionDate(Integer id);
+
+    List<DetectionCurrDto> getCurr(Integer userId);
 }

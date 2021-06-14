@@ -3,6 +3,7 @@ package site.ncov.www.ncov.report.service.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import site.ncov.www.ncov.report.controller.dto.DetectionCurrDto;
 import site.ncov.www.ncov.report.controller.dto.DetectionsDto;
 import site.ncov.www.ncov.report.domain.Detection;
 import site.ncov.www.ncov.report.respository.DetectionRespository;
@@ -40,5 +41,10 @@ public class DetectionImpl implements DetectionService {
     @Override
     public LocalDate detectionDate(Integer id) {
         return detectionRespository.detectionDate(id);
+    }
+
+    @Override
+    public List<DetectionCurrDto> getCurr(Integer userId) {
+        return detectionRespository.getCurr(userId);
     }
 }

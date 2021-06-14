@@ -1,6 +1,7 @@
 package site.ncov.www.ncov.report.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import site.ncov.www.ncov.report.controller.dto.DetectionCurrDto;
 import site.ncov.www.ncov.report.controller.dto.DetectionsDto;
 import site.ncov.www.ncov.report.domain.Detection;
 
@@ -22,4 +23,6 @@ public interface DetectionService {
     void removeDetections(Integer id);
 
     LocalDate detectionDate(Integer id);
+
+    List<DetectionCurrDto> getCurr(Integer userId);
 }

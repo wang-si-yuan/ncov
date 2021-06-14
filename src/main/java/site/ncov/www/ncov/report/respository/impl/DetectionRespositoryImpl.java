@@ -3,6 +3,7 @@ package site.ncov.www.ncov.report.respository.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import site.ncov.www.ncov.common.respository.UserService;
+import site.ncov.www.ncov.report.controller.dto.DetectionCurrDto;
 import site.ncov.www.ncov.report.controller.dto.DetectionsDto;
 import site.ncov.www.ncov.report.domain.Detection;
 import site.ncov.www.ncov.report.domain.vo.DetectionVo;
@@ -54,5 +55,12 @@ public class DetectionRespositoryImpl extends ServiceImpl<DetectionMapper, Detec
             return null;
         }
         return list.get(0).getDetectionTime().toLocalDate();
+    }
+
+    @Override
+    public List<DetectionCurrDto> getCurr(Integer userId) {
+        List<DetectionVo> detectionVoList = this.lambdaQuery().eq(DetectionVo::getUserId, userId).orderByDesc(DetectionVo::getDetectionTime).list();
+
+        return DetectionCurrDto.transDtoList(detectionVoList);
     }
 }

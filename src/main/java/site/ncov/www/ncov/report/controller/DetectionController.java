@@ -12,13 +12,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import site.ncov.www.ncov.common.domain.entity.HttpResult;
+import site.ncov.www.ncov.common.domain.entity.User;
+import site.ncov.www.ncov.common.exception.WebException;
 import site.ncov.www.ncov.common.respository.UserService;
 import site.ncov.www.ncov.report.controller.cqe.DetectionCommand;
 import site.ncov.www.ncov.report.controller.cqe.DetectionQuery;
+import site.ncov.www.ncov.report.controller.dto.DetectionCurrDto;
 import site.ncov.www.ncov.report.controller.dto.DetectionsDto;
 import site.ncov.www.ncov.report.domain.Detection;
 import site.ncov.www.ncov.report.service.DetectionService;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -60,6 +64,14 @@ public class DetectionController {
     public HttpResult removeDetections(Integer id) {
         detectionService.removeDetections(id);
         return HttpResult.ok();
+    }
+
+    @ApiOperation("查询报告信息")
+    @RequestMapping(value = "/getCurr", method = {RequestMethod.GET})
+    public HttpResult getCurr() throws FileNotFoundException, WebException {
+        User curr = userService.getCurr();
+        List<DetectionCurrDto> detectionCurrDtoList = detectionService.getCurr(curr.getUserId());
+        return HttpResult.ok(detectionCurrDtoList);
     }
 
 }
