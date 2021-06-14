@@ -28,8 +28,12 @@ public enum SigninType implements IEnum<Integer> {
         this.desc = desc;
     }
 
+    public String getDesc() {
+        return desc;
+    }
+
     @Override
     public Integer getValue() {
-        return null;
+        return value;
     }
 }

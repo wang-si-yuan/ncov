@@ -1,6 +1,8 @@
 package site.ncov.www.ncov.place.model.param;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.models.auth.In;
+import lombok.Data;
 import site.ncov.www.ncov.common.utils.BeanConvertUtils;
 import site.ncov.www.ncov.place.model.entity.SigninType;
 import site.ncov.www.ncov.place.model.vo.SigninVo;
@@ -10,6 +12,7 @@ import site.ncov.www.ncov.place.model.vo.SigninVo;
  * @version 0.0.0
  */
 
+@Data
 public class SigninParam {
     @ApiModelProperty(value = "维度")
     private Double signinLat;
@@ -33,11 +36,12 @@ public class SigninParam {
     private String signinStreetNumber;
 
     @ApiModelProperty(value = "地点")
-    private Integer signinPlace;
+    private String signinPlace;
 
     public SigninVo transVo() {
         SigninVo signinVo = BeanConvertUtils.copyProperties(this, SigninVo.class);
         signinVo.setSigninType(SigninType.SIGNIN);
+        signinVo.setSigninPlace(Integer.parseInt(signinPlace));
         return signinVo;
     }
 
