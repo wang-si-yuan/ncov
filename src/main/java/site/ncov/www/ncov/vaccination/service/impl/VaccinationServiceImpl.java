@@ -33,6 +33,9 @@ public class VaccinationServiceImpl implements VaccinationService {
     @Override
     public CurrVaccinationsDto getCurr() throws FileNotFoundException, WebException {
         Vaccinations vaccinations = vaccinationRespository.queryVaccinations(userService.getCurr().getUserId());
+        if (vaccinations.getUserId() == null) {
+            return null;
+        }
         return CurrVaccinationsDto.transCurrVaccinationsDto(vaccinations);
     }
 

@@ -32,18 +32,23 @@ public class CalculatorServiceImpl implements CalculatorService {
 
     @Override
     public Double queryCode() throws FileNotFoundException, WebException {
+        Double code = 0d;
         User curr = userService.getCurr();
         Integer L = 3 - curr.getUserStatus().getValue();
         LocalDate detectionDate = detectionService.detectionDate(curr.getUserId());
         CurrVaccinationsDto c = vaccinationService.getCurr();
-        Double H = (double)c.getNum()/c.getTotal();
-        Double code = 0d;
+        if (c!=null) {
+            Double H = (double)c.getNum()/c.getTotal();
+            code += 10d*H;
+        }
+
+
         code += L*20d;
         if (detectionDate!=null) {
             double D = (LocalDate.now().toEpochDay() - detectionDate.toEpochDay());
             code += 30d / (Math.floor(D / 14d) + 1d);
         }
-        code += 10d*H;
+
 
         return code;
     }
