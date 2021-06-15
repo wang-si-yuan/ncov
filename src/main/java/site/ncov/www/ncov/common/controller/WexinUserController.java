@@ -41,7 +41,7 @@ public class WexinUserController {
         user.setUserRole(Role.NORMAL);
 
         UserVo one = userService.lambdaQuery().eq(UserVo::getUserIdcard, user.getUserIdcard()).one();
-        if (one !=null) {
+        if (one == null) {
             userService.save(user.transVo());
             return HttpResult.ok(user.transVo());
         }
