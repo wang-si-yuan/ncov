@@ -21,10 +21,13 @@ import site.ncov.www.ncov.place.domain.vo.RiskVo;
 import site.ncov.www.ncov.place.model.dto.AddRiskDto;
 import site.ncov.www.ncov.place.model.dto.ExcelMapping;
 import site.ncov.www.ncov.place.model.entity.Signin;
+import site.ncov.www.ncov.place.model.entity.SigninType;
 import site.ncov.www.ncov.place.model.param.AutoSigninParam;
 import site.ncov.www.ncov.place.model.param.SigninParam;
+import site.ncov.www.ncov.place.model.vo.PlaceVo;
 import site.ncov.www.ncov.place.model.vo.SigninVo;
 import site.ncov.www.ncov.place.respository.RiskRespository;
+import site.ncov.www.ncov.place.service.PlaceService;
 import site.ncov.www.ncov.place.service.SigninService;
 
 import java.io.FileNotFoundException;
@@ -56,6 +59,9 @@ public class SigninController {
 
     @Autowired
     private RiskRespository riskRespository;
+
+    @Autowired
+    private PlaceService placeService;
 
     @ApiOperation("自动更新地点")
     @RequestMapping(value = "/autoSignin",method = {RequestMethod.POST})
@@ -101,6 +107,25 @@ public class SigninController {
         signinVoList.forEach(signinVo -> citys.add(signinVo.getSignninCity()));
 
         return HttpResult.ok(citys);
+    }
+
+    @ApiOperation("获取7天内到访的地点")
+    @RequestMapping(value = "/weekPlaces",method = {RequestMethod.GET})
+    public HttpResult weekPlaces() throws FileNotFoundException, WebException {
+        User user = userService.getCurr();
+        List<SigninVo> signinVoList = signinService.lambdaQuery().select(SigninVo::getSigninPlace).eq(SigninVo::getSigninType, SigninType.SIGNIN)
+                .eq(SigninVo::getSigninUser, user.getUserId()).between(SigninVo::getCreateTime, LocalDateTime.now().minusWeeks(1), LocalDateTime.now()).list()
+                .stream().distinct().collect(Collectors.toList());
+        if (signinVoList.isEmpty()) {
+            return HttpResult.ok();
+        } else {
+            List<String> places = new ArrayList<>();
+            signinVoList.forEach(signinVo -> {
+                String x = placeService.lambdaQuery().select(PlaceVo::getPlaceTitle).eq(PlaceVo::getPlaceId, signinVo.getSigninPlace()).one().getPlaceTitle();
+                places.add(x);
+            });
+            return HttpResult.ok(places);
+        }
     }
 
     @ApiOperation("设置风险城市")
